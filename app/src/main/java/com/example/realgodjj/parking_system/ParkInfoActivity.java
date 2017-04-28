@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.ParkOperateClient;
+import com.example.realgodjj.parking_system.client.ParkClient;
 import com.example.realgodjj.parking_system.simulation.Park;
 
 public class ParkInfoActivity extends AppCompatActivity {
@@ -67,7 +67,7 @@ public class ParkInfoActivity extends AppCompatActivity {
                 try{
                     Park park = new Park();
                     park.setParkName(parkingLotUid);
-                    isSuccess = ParkOperateClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
+                    isSuccess = ParkClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
                     if (isSuccess == null) {
                         Message message = new Message();
                         message.what = GETPARKINFO_ERROR;

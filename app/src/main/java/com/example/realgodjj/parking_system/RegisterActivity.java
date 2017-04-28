@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.RegisterOperateClient;
+import com.example.realgodjj.parking_system.client.RegisterClient;
 import com.example.realgodjj.parking_system.simulation.User;
 
 
@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 user.setPhoneNumber(s_phoneNumber);
                                 user.setEmail(s_email);
                                 user.setPlateNo(s_plateNo);
-                                isSuccess = RegisterOperateClient.Register(MyApp.getIpAddress(), user);
+                                isSuccess = RegisterClient.Register(MyApp.getIpAddress(), user);
                                 if (isSuccess.equals("Register success!")) {
                                     Message message = new Message();
                                     message.what = REGISTER_SUCCESS;

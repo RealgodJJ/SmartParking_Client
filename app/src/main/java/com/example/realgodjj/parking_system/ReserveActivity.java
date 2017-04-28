@@ -19,7 +19,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.PlanNode;
 import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.ParkOperateClient;
+import com.example.realgodjj.parking_system.client.ParkClient;
 
 import static com.example.realgodjj.parking_system.RoutePlanningActivity.ROUTE_PLANNING;
 
@@ -75,7 +75,7 @@ public class ReserveActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    getPrice = ParkOperateClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
+                    getPrice = ParkClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
                     if (getPrice == null) {
                         Message message = new Message();
                         message.what = GETPARKINFO_ERROR;

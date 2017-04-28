@@ -16,7 +16,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.PlanNode;
 import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.ReserveOperateClient;
+import com.example.realgodjj.parking_system.client.ReserveClient;
 
 import static com.example.realgodjj.parking_system.RoutePlanningActivity.ROUTE_PLANNING;
 
@@ -86,7 +86,7 @@ public class BestChoiceActivity extends AppCompatActivity {
                         try {
                             Intent intent = new Intent(BestChoiceActivity.this, RoutePlanningActivity.class);
 
-                            isSuccess = ReserveOperateClient.reserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
+                            isSuccess = ReserveClient.reserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
                             if (TextUtils.isEmpty(isSuccess)) {
                                 Message message = new Message();
                                 message.what = RESERVE_ERROR;

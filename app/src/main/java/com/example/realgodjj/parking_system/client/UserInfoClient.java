@@ -6,7 +6,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
-public class UserInfoOperateClient {
+public class UserInfoClient {
     public static String getByUserId(String url, int userId) {
         String isSuccess = "";
         ClientResource client = new ClientResource(url + "/user/" + userId + "?choose=userId");

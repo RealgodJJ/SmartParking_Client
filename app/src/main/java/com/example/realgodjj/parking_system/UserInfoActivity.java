@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.UpdateUserOperateClient;
-import com.example.realgodjj.parking_system.client.UserInfoOperateClient;
+import com.example.realgodjj.parking_system.client.UpdateUserClient;
+import com.example.realgodjj.parking_system.client.UserInfoClient;
 import com.example.realgodjj.parking_system.simulation.User;
 
 public class UserInfoActivity extends AppCompatActivity {
@@ -56,7 +56,7 @@ public class UserInfoActivity extends AppCompatActivity {
                     e_userName.setText(userName);
                     User user = new User();
                     user.setUserName(userName);
-                    isSuccess1 = UserInfoOperateClient.getByUserName(MyApp.getIpAddress(), userName);
+                    isSuccess1 = UserInfoClient.getByUserName(MyApp.getIpAddress(), userName);
                     if (isSuccess1 == null) {
                         Message message = new Message();
                         message.what = GETUSERINFO_ERROR;
@@ -106,7 +106,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 user.setEmail(e_email.getText().toString());
                                 user.setPlateNo(e_plateNo.getText().toString());
                                 //修改数据库用户信息
-                                isSuccess3 = UpdateUserOperateClient.updateUser(MyApp.getIpAddress(), user);
+                                isSuccess3 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
                                 if(isSuccess3 == null) {
                                     Message message = new Message();
                                     message.what = UPDATEUSERINFO_ERROR;

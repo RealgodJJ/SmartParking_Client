@@ -8,7 +8,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
-public class UpdateUserOperateClient {
+public class UpdateUserClient {
     public static String updateUser(String url, User user) {
         String isSuccess = "";
         ClientResource client = new ClientResource(url + "/updateUser");

@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.ParkOperateClient;
-import com.example.realgodjj.parking_system.client.ReserveOperateClient;
+import com.example.realgodjj.parking_system.client.ParkClient;
+import com.example.realgodjj.parking_system.client.ReserveClient;
 import com.example.realgodjj.parking_system.simulation.Park;
 
 import java.util.Calendar;
@@ -79,7 +79,7 @@ public class SetParkingActivity extends AppCompatActivity {
                 try{
                     Park park = new Park();
                     park.setParkName(parkingLotUid);
-                    isSuccess = ParkOperateClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
+                    isSuccess = ParkClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
                     if (isSuccess.equals("")) {
                         Message message = new Message();
                         message.what = GET_TOTAL_AVAILABLE_ERROR;
@@ -167,7 +167,7 @@ public class SetParkingActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            isSuccess = ReserveOperateClient.reserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
+                            isSuccess = ReserveClient.reserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
                         } catch (IllegalArgumentException e) {
                             e.printStackTrace();
                         }

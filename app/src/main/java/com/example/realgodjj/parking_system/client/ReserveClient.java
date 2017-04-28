@@ -6,7 +6,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
-public class ReserveOperateClient {
+public class ReserveClient {
 
     public static String reserve(String url, String userName, String parkUid) {
         String isSuccess = "";

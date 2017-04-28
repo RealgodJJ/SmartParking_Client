@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.ReserveOperateClient;
+import com.example.realgodjj.parking_system.client.ReserveClient;
 
 import java.util.Locale;
 import java.util.Timer;
@@ -108,7 +108,7 @@ public class TimingActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            isSuccess = ReserveOperateClient.undoReserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
+                            isSuccess = ReserveClient.undoReserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
                             if(!TextUtils.isEmpty(isSuccess)) {
                                 Message message = new Message();
                                 message.what = UNDO_RESERVE;
@@ -151,7 +151,7 @@ public class TimingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    isSuccess = ReserveOperateClient.undoReserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
+                                    isSuccess = ReserveClient.undoReserve(MyApp.getIpAddress(), MyApp.getUserName(), parkingLotUid);
                                     if(!TextUtils.isEmpty(isSuccess)) {
                                         Message message = new Message();
                                         message.what = UNDO_RESERVE;

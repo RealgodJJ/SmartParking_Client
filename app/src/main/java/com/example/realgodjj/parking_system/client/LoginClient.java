@@ -8,7 +8,7 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
 //用户登录客户端
-public class LoginOperateClient {
+public class LoginClient {
     public static String login(String url, User user) {
         String isSuccess = "";
         ClientResource client = new ClientResource(url + "/login");

@@ -12,7 +12,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.*;
-import com.example.realgodjj.parking_system.client.LoginOperateClient;
+import com.example.realgodjj.parking_system.client.LoginClient;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.simulation.User;
 
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                 User user = new User();
                                 user.setUserName(userName);
                                 user.setPassword(password);
-                                isSuccess = LoginOperateClient.login(MyApp.getIpAddress(), user);
+                                isSuccess = LoginClient.login(MyApp.getIpAddress(), user);
                                 if (isSuccess.equals("Login success!")) {
                                     Message message = new Message();
                                     message.what = LOGIN_SUCCESS;
