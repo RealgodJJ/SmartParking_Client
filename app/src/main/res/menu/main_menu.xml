@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.design.fileencryption.MainActivity">
+
+    <item
+            android:id="@+id/login"
+            android:title="@string/sys_login"
+            app:showAsAction="never" />
+
+    <item
+            android:id="@+id/user_info"
+            android:title="@string/user_info"
+            app:showAsAction="never" />
+
+    <item
+            android:id="@+id/des"
+            android:title="选择目的地"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/park_near"
+            android:title="搜索周边停车场"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/checkout"
+            android:title="用户注销"
+            app:showAsAction="never"/>
+
+</menu>

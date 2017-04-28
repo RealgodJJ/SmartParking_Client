@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:layout_gravity="bottom"
+              android:padding="16dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="bottom">
+
+        <Button
+                android:id="@+id/route_planning_table_below_park_info_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#46ff40"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/park_info"
+                android:textSize="30sp"/>
+
+        <Button
+                android:id="@+id/route_planning_table_below_reserve_button"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ff8d54"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reserve"
+                android:textSize="30sp"/>
+
+        <Button
+                android:id="@+id/route_planning_table_below_guide_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ff3af2"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/guide"
+                android:textSize="30sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

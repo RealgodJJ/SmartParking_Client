@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.baidu.mapapi.map.MapView
+            android:id="@+id/baidu_map"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:layout_above="@+id/route_planning_route_area_relative_layout"
+            android:clickable="true"/>
+
+    <RelativeLayout
+            android:id="@+id/route_planning_route_area_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_alignParentBottom="true">
+
+        <ListView
+                android:id="@+id/route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        </ListView>
+
+    </RelativeLayout>
+
+</LinearLayout
+>

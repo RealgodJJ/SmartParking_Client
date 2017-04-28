@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_paying"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="com.example.realgodjj.parking_system.PayingActivity">
+    <ImageView
+            android:id="@+id/paying_parkFee_image"
+            android:layout_width="300sp"
+            android:layout_height="300sp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/parkfee"/>
+
+    <RelativeLayout
+            android:id="@+id/paying_parkFee_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paying_parkFee_image"
+            android:layout_marginTop="14dp"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/paying_parkFee_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/parkFee"
+                android:textSize="25sp"
+                android:textColor="#ffaa00"/>
+
+        <EditText
+                android:id="@+id/paying_parkFee_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@id/paying_parkFee_text_view"
+                android:gravity="center"
+                android:textSize="20sp"/>
+
+    </RelativeLayout>
+
+    <Button
+            android:id="@+id/paying_finish_paying_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paying_parkFee_relative_layout"
+            android:layout_marginTop="14dp"
+            android:text="@string/finish_paying"
+            android:textSize="25sp"/>
+
+</RelativeLayout>

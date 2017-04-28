@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.realgodjj.parking_system">
+
+    <!-- 百度地图需要的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <application
+            android:allowBackup="true"
+            android:icon="@drawable/icon"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="AllowBackup">
+        <meta-data
+                android:name="com.baidu.lbsapi.API_KEY"
+                android:value="bEwhu6P42wiIo9fm6dygUkR3ckAeG3od"/>
+
+        <!-- BaiduMap location service -->
+        <service
+                android:name="com.baidu.location.f"
+                android:enabled="true"
+                android:process=":remote"/>
+
+        <activity
+                android:name=".MainActivity"
+                android:configChanges="keyboardHidden|orientation|locale|navigation"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".LoginActivity"
+                android:label="@string/sys_login"/>
+        <activity
+                android:name=".RegisterActivity"
+                android:label="@string/user_register"/>
+        <activity
+                android:name=".UserInfoActivity"
+                android:label="@string/user_info"/>
+        <activity
+                android:name=".ParkInfoActivity"
+                android:label="@string/park_info"/>
+        <activity
+                android:name=".ReserveActivity"
+                android:label="@string/reserve"/>
+        <activity
+                android:name=".BestChoiceActivity"
+                android:label="@string/best_estimate"/>
+        <activity
+                android:name=".RoutePlanningActivity"
+                android:label="@string/drive_route"/>
+        <activity
+                android:name=".TimingActivity"
+                android:label="@string/park_timing"/>
+        <activity
+                android:name=".PayingActivity"
+                android:label="@string/paying"/>
+        <activity
+                android:name=".SetParkingActivity"
+                android:label="@string/set_parking_time"/>
+    </application>
+
+</manifest>

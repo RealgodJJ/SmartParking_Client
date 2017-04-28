@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.baidu.mapapi.map.MapView
+            android:id="@+id/baidu_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"/>
+
+    <com.example.realgodjj.parking_system.baidu.MapStateView
+            android:id="@+id/real_time_traffic_button"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            app:mapBackgroudColor="@android:color/white"
+            app:mapStrokeColor="#abaaaa"
+            app:mapStrokeWidth="1px"
+            app:mapText="路况"
+            app:mapTextSize="10sp"
+            app:mapTextColor="#000000"
+            app:normalStateIcon="@mipmap/main_icon_roadcondition_on"
+            app:mapIconMode="false"
+            app:stereoStateIcon="@mipmap/main_icon_roadcondition_off"/>
+
+    <com.example.realgodjj.parking_system.baidu.MapStateView
+            android:id="@+id/location_button"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            app:mapBackgroudColor="@android:color/white"
+            app:mapIconMode="true"
+            app:mapStrokeColor="#abaaaa"
+            app:mapStrokeWidth="1px"
+            app:noCurrentLocationIcon="@mipmap/main_icon_location"
+            app:normalStateIcon="@mipmap/main_icon_follow"
+            app:stereoStateIcon="@mipmap/main_icon_compass"/>
+
+</RelativeLayout>
