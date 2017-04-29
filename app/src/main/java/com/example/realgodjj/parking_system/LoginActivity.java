@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int LOGIN_ERROR = 2;//login fail
     private ImageView intelligent;
     private EditText e_userName, e_pwd;
-    private TextView forgetPassword;
+    private TextView changePassword;
     private CheckBox showPassword, rememberPassword;
     private Button login, register;
     private String isSuccess = "";
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         e_userName = (EditText) findViewById(R.id.account_edit_text);
         e_pwd = (EditText) findViewById(R.id.password_edit_text);
-        forgetPassword = (TextView) findViewById(R.id.forget_password_text_view);
+        changePassword = (TextView) findViewById(R.id.change_password_text_view);
         login = (Button) findViewById(R.id.login_button);
         register = (Button) findViewById(R.id.register_button);
         showPassword = (CheckBox) findViewById(R.id.show_password_check_box);
@@ -78,6 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     e_pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
+            }
+        });
+
+        //修改密码
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ChangePasswordActivity.class));
+                finish();
             }
         });
 
@@ -164,6 +173,14 @@ public class LoginActivity extends AppCompatActivity {
             String registerPassword = bundle.getString("key_password");
             e_userName.setText(registerUserName);
             e_pwd.setText(registerPassword);
+            MyApp.setRegister(false);
+        } else if(MyApp.isResetPassword()) {
+            Bundle bundle = this.getIntent().getExtras();
+            String userName = bundle.getString("userName");
+            String new_password = bundle.getString("new_password");
+            e_userName.setText(userName);
+            e_pwd.setText(new_password);
+            MyApp.setResetPassword(false);
         }
     }
 

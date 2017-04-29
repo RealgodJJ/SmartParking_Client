@@ -10,7 +10,7 @@
 
     <ImageView
             android:id="@+id/parking_lot_image"
-            android:layout_width="300sp"
+            android:layout_width="600sp"
             android:layout_height="150sp"
             android:layout_gravity="center"/>
 

@@ -17,7 +17,7 @@ public class MyApp {
 
     private static boolean isIntent = false;
 
-    private static String ipAddress = "http://10.21.2.42:8085";
+    private static String ipAddress = "http://192.168.10.100:8085";
 
     private static String userName = "";
 
@@ -28,6 +28,8 @@ public class MyApp {
     private static PoiInfo currClickPoi;
 
     private static boolean isReserve = false;
+
+    private static boolean isResetPassword = false;
 
     public static boolean isLogin() {
         return isLogin;
@@ -111,5 +113,13 @@ public class MyApp {
 
     public static void setReserve(boolean isReserve) {
         MyApp.isReserve = isReserve;
+    }
+
+    public static boolean isResetPassword() {
+        return isResetPassword;
+    }
+
+    public static void setResetPassword(boolean isResestPassword) {
+        MyApp.isResetPassword = isResestPassword;
     }
 }

@@ -21,7 +21,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private ImageView head_picture;
     private EditText e_userName, e_phoneNumber, e_email, e_plateNo;
     private Button changeInfo, saveInfo;
-    private String isSuccess1 = "", isSuccess2 = "", isSuccess3 = "";
+    private String isSuccess1 = "", isSuccess2 = "";
     private String userName, userId;
     private static final int GETUSERINFO_SUCCESS = 1;
     private static final int GETUSERINFO_ERROR = 2;
@@ -106,8 +106,8 @@ public class UserInfoActivity extends AppCompatActivity {
                                 user.setEmail(e_email.getText().toString());
                                 user.setPlateNo(e_plateNo.getText().toString());
                                 //修改数据库用户信息
-                                isSuccess3 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
-                                if(isSuccess3 == null) {
+                                isSuccess2 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
+                                if(isSuccess2 == null) {
                                     Message message = new Message();
                                     message.what = UPDATEUSERINFO_ERROR;
                                     handler.sendMessage(message);

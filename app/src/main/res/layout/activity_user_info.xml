@@ -27,7 +27,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/account"
+                        android:text="@string/user_info_account"
                         android:textSize="17sp"
                         android:textColor="#000"
                         android:gravity="center"/>
@@ -44,7 +44,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/phone_number"
+                        android:text="@string/user_info_phone_number"
                         android:textSize="17sp"
                         android:textColor="#000"
                         android:gravity="center"/>
@@ -78,7 +78,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/plateNo"
+                        android:text="@string/user_info_plateNo"
                         android:textSize="17sp"
                         android:textColor="#000"
                         android:gravity="center"/>

@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="@string/parking_lot_total_spaces"
+                android:text="@string/total_spaces"
                 android:textSize="17sp"
                 android:textColor="#000"/>
 
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="@string/parking_lot_total_available"
+                android:text="@string/total_available"
                 android:textSize="17sp"
                 android:textColor="#000"/>
 

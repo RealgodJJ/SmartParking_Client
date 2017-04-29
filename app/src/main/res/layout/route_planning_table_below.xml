@@ -21,29 +21,29 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/park_info"
-                android:textSize="30sp"/>
+                android:textSize="23sp"/>
 
         <Button
                 android:id="@+id/route_planning_table_below_reserve_button"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ff8d54"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/reserve"
-                android:textSize="30sp"/>
+                android:textSize="23sp"/>
 
         <Button
                 android:id="@+id/route_planning_table_below_guide_button"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ff3af2"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/guide"
-                android:textSize="30sp"/>
+                android:textSize="23sp"/>
 
     </LinearLayout>
 

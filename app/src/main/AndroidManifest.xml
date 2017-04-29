@@ -80,6 +80,10 @@
         <activity
                 android:name=".SetParkingActivity"
                 android:label="@string/set_parking_time"/>
+        <activity
+                android:name=".ChangePasswordActivity"
+                android:label="@string/change_password">
+        </activity>
     </application>
 
 </manifest>

@@ -142,7 +142,6 @@ public class ReserveActivity extends AppCompatActivity {
 
                                 intent.putExtras(bundle);
                                 startActivity(intent);
-                                finish();
                             } catch (IllegalArgumentException e) {
                                 e.printStackTrace();
                             }
