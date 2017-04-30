@@ -65,7 +65,16 @@
     <string name="email1">请输入电子邮箱</string>
     <string name="plateNo1">请输入车牌号</string>
     <string name="space">不能有信息为空！</string>
+    <string name="account_check">用户名不能超过20位!</string>
+    <string name="account_repeat">用户名已注册!</string>
+    <string name="phone_number_check">手机号输入不合法!</string>
+    <string name="phone_number_repeat">该手机号已注册!</string>
+    <string name="pwd_check">密码长度不能小于6位!</string>
     <string name="pwd_not_the_same">两次输入的密码不一样！</string>
+    <string name="email_check">邮箱输入不合法!</string>
+    <string name="email_repeat">该邮箱已注册!</string>
+    <string name="plateNo_check">车牌号输入不合法!</string>
+    <string name="plateNo_repeat">该车牌号已注册!</string>
     <string name="register_right">注册成功！</string>
     <string name="register_error">注册失败！</string>
 

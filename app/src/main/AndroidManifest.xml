@@ -79,7 +79,7 @@
                 android:label="@string/paying"/>
         <activity
                 android:name=".SetParkingActivity"
-                android:label="@string/set_parking_time"/>
+                android:label="@string/start_timing"/>
         <activity
                 android:name=".ChangePasswordActivity"
                 android:label="@string/change_password">

@@ -16,6 +16,9 @@ import com.example.realgodjj.parking_system.client.UpdateUserClient;
 import com.example.realgodjj.parking_system.client.UserInfoClient;
 import com.example.realgodjj.parking_system.simulation.User;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserInfoActivity extends AppCompatActivity {
 
     private ImageView head_picture;
@@ -93,11 +96,27 @@ public class UserInfoActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
+                            String email_check = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+                            String plateNo_check = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$";
+                            Pattern pattern_email = Pattern.compile(email_check);
+                            Pattern pattern_plateNo = Pattern.compile(plateNo_check);
+                            Matcher matcher_email = pattern_email.matcher(e_email.getText().toString());
+                            Matcher matcher_plateNo = pattern_plateNo.matcher(e_plateNo.getText().toString());
                             if(TextUtils.isEmpty(e_userName.getText().toString()) ||TextUtils.isEmpty(e_phoneNumber.getText().toString()) ||
                                     TextUtils.isEmpty(e_email.getText().toString()) || TextUtils.isEmpty(e_plateNo.getText().toString())) {
                                 Message message = new Message();
                                 message.what = UPDATEUSERINFO_NULL;
                                 handler.sendMessage(message);
+                            } else if (e_userName.getText().toString().length() > 20) {
+                                Toast.makeText(UserInfoActivity.this, R.string.account_check, Toast.LENGTH_SHORT).show();
+                            } else if (e_phoneNumber.getText().toString().length() != 11) {
+                                Toast.makeText(UserInfoActivity.this, R.string.phone_number_check, Toast.LENGTH_SHORT).show();
+                                //TODO :判断用户手机号是否与已注册的用户手机号有重复
+                            } else if (matcher_email.matches()) {
+                                Toast.makeText(UserInfoActivity.this, R.string.email_check, Toast.LENGTH_SHORT).show();
+                            } else if (matcher_plateNo.matches()) {
+                                Toast.makeText(UserInfoActivity.this, R.string.plateNo_check, Toast.LENGTH_SHORT).show();
+                                //TODO :判断用户邮箱是否与已注册的用户邮箱有重复
                             } else {
                                 User user = new User();
                                 user.setUserId(Integer.parseInt(userId));

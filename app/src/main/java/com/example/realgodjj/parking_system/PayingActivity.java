@@ -31,7 +31,6 @@ public class PayingActivity extends AppCompatActivity {
         finishPaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
                 Toast.makeText(PayingActivity.this, R.string.finish_paying, Toast.LENGTH_SHORT).show();
                 finish();
             }

@@ -52,4 +52,73 @@ public class UserInfoClient {
         }
         return isSuccess;
     }
+
+    public static String getByPhoneNumber(String url, String phoneNumber) {
+        String isSuccess = "";
+        ClientResource client = new ClientResource(url + "/user/" + phoneNumber + "?choose=phoneNumber");
+        try {
+            Form form = new Form();
+            form.add("phoneNumber", phoneNumber);
+            System.out.println("\n\n\n....................................................getByPhoneNumber hahahahahahhaha\n\n\n");
+            Representation representation = form.getWebRepresentation();
+            String text = representation.getText();
+            StringRepresentation stringRepresentation = new StringRepresentation(text, MediaType.ALL);
+            System.out.println("User getByPhoneNumber " + text);
+
+            isSuccess = client.get().getText();
+
+            System.out.println("\n\n\ngetByPhoneNumber hahahahahahhaha....................................................\n\n\n");
+
+            System.out.println("User getByPhoneNumber " + "{" + isSuccess + "}");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
+
+    public static String getByEmail(String url, String email) {
+        String isSuccess = "";
+        ClientResource client = new ClientResource(url + "/user/" + email + "?choose=email");
+        try {
+            Form form = new Form();
+            form.add("email", email);
+            System.out.println("\n\n\n....................................................getByEmail hahahahahahhaha\n\n\n");
+            Representation representation = form.getWebRepresentation();
+            String text = representation.getText();
+            StringRepresentation stringRepresentation = new StringRepresentation(text, MediaType.ALL);
+            System.out.println("User getByEmail " + text);
+
+            isSuccess = client.get().getText();
+
+            System.out.println("\n\n\ngetByEmail hahahahahahhaha....................................................\n\n\n");
+
+            System.out.println("User getByEmail " + "{" + isSuccess + "}");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
+
+    public static String getByPlateNo(String url, String plateNo) {
+        String isSuccess = "";
+        ClientResource client = new ClientResource(url + "/user/" + plateNo + "?choose=plateNo");
+        try {
+            Form form = new Form();
+            form.add("plateNo", plateNo);
+            System.out.println("\n\n\n....................................................getByPlateNo hahahahahahhaha\n\n\n");
+            Representation representation = form.getWebRepresentation();
+            String text = representation.getText();
+            StringRepresentation stringRepresentation = new StringRepresentation(text, MediaType.ALL);
+            System.out.println("User getByPlateNo " + text);
+
+            isSuccess = client.get().getText();
+
+            System.out.println("\n\n\ngetByPlateNo hahahahahahhaha....................................................\n\n\n");
+
+            System.out.println("User getByPlateNo " + "{" + isSuccess + "}");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
 }

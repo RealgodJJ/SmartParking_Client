@@ -40,9 +40,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         e_new_password = (EditText) findViewById(R.id.change_password_new_pwd_edit_text);
         e_new_password_again = (EditText) findViewById(R.id.change_password_new_pwd_again_edit_text);
         changePassword = (Button) findViewById(R.id.change_password_change_pwd_button);
-//        e_old_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//        e_new_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//        e_new_password_again.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        e_old_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        e_new_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        e_new_password_again.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +55,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(old_password) || TextUtils.isEmpty(new_password) || TextUtils.isEmpty(new_password_again)) {
                     Toast.makeText(ChangePasswordActivity.this, R.string.info_empty, Toast.LENGTH_SHORT).show();
                     return;
+                } else if (new_password.length() < 6) {
+                    Toast.makeText(ChangePasswordActivity.this, R.string.pwd_check, Toast.LENGTH_SHORT).show();
                 } else if (!new_password.equals(new_password_again)) {
                     Toast.makeText(ChangePasswordActivity.this, R.string.pwd_not_the_same, Toast.LENGTH_SHORT).show();
                 } else if(old_password.equals(new_password)) {

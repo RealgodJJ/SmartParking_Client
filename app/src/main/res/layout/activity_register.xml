@@ -99,7 +99,7 @@
                     android:textSize="17sp"
                     android:gravity="center"/>
             <EditText
-                    android:id="@+id/plateNo_edit_text"
+                    android:id="@+id/register_plateNo_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/plateNo1"

@@ -1,6 +1,7 @@
 package com.example.realgodjj.parking_system;
 
 import android.content.Intent;
+import android.net.sip.SipRegistrationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,8 @@ import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.client.ParkClient;
 
+import java.util.Calendar;
+
 import static com.example.realgodjj.parking_system.RoutePlanningActivity.ROUTE_PLANNING;
 
 public class ReserveActivity extends AppCompatActivity {
@@ -33,6 +36,7 @@ public class ReserveActivity extends AppCompatActivity {
     private double totalHour = 0, totalMinute = 0;
     private double dayTime, nightTime;//以小时记录的日间时间和夜间时间
     private String parkingLotName, parkingLotAddress, totalSpaces, totalAvailable;
+    private int currentHour, currentMinute;
     private double parkPrice, parkNightPrice;
     private double totalTime;
     private double parkFee;
@@ -68,6 +72,12 @@ public class ReserveActivity extends AppCompatActivity {
             e_parkingLotTotalSpaces.setEnabled(false);
             e_parkingLotTotalAvailable.setEnabled(false);
         }
+
+        Calendar c = Calendar.getInstance();
+        currentHour = c.get(Calendar.HOUR_OF_DAY);
+        currentMinute = c.get(Calendar.MINUTE);
+        e_startTime_hour.setText(String.valueOf(currentHour));
+        e_startTime_minute.setText(String.valueOf(currentMinute));
 
         //获取部分停车场信息
         Thread post_thread;
