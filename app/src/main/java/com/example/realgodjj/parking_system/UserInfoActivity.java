@@ -16,6 +16,7 @@ import com.example.realgodjj.parking_system.client.UpdateUserClient;
 import com.example.realgodjj.parking_system.client.UserInfoClient;
 import com.example.realgodjj.parking_system.simulation.User;
 
+import java.util.MissingFormatWidthException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,11 +27,23 @@ public class UserInfoActivity extends AppCompatActivity {
     private Button changeInfo, saveInfo;
     private String isSuccess1 = "", isSuccess2 = "";
     private String userName, userId;
+    private String isSuccess = "";
+    private String server_userName, server_phoneNumber, server_email, server_plateNo;
+    private String s_userName, s_phoneNumber, s_email, s_plateNo;
     private static final int GETUSERINFO_SUCCESS = 1;
     private static final int GETUSERINFO_ERROR = 2;
     private static final int UPDATEUSERINFO_SUCCESS = 3;
     private static final int UPDATEUSERINFO_ERROR = 4;
     private static final int UPDATEUSERINFO_NULL = 5;
+    private static final int USERNAME_CHECK = 6;
+    private static final int USERNAME_REPEAT = 7;
+    private static final int PHONE_NUMBER_CHECK = 8;
+    private static final int PHONE_NUMBER_REPEAT = 9;
+    private static final int EMAIL_CHECK = 10;
+    private static final int EMAIL_REPEAT = 11;
+    private static final int PLATENO_CHECK = 12;
+    private static final int PLATENO_REPEAT = 13;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +67,7 @@ public class UserInfoActivity extends AppCompatActivity {
         post_thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
+                try {
                     userName = MyApp.getUserName();//get userName who is logging
                     e_userName.setText(userName);
                     User user = new User();
@@ -69,7 +82,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         message.what = GETUSERINFO_SUCCESS;
                         handler.sendMessage(message);
                     }
-                }catch(IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 }
             }
@@ -84,6 +97,10 @@ public class UserInfoActivity extends AppCompatActivity {
                 e_phoneNumber.setEnabled(true);
                 e_email.setEnabled(true);
                 e_plateNo.setEnabled(true);
+                s_userName = e_userName.getText().toString();
+                s_phoneNumber = e_phoneNumber.getText().toString();
+                s_email = e_email.getText().toString();
+                s_plateNo = e_plateNo.getText().toString().substring(1);
             }
         });
 
@@ -95,48 +112,109 @@ public class UserInfoActivity extends AppCompatActivity {
                 update_post_thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try{
-                            String email_check = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-                            String plateNo_check = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$";
-                            Pattern pattern_email = Pattern.compile(email_check);
-                            Pattern pattern_plateNo = Pattern.compile(plateNo_check);
-                            Matcher matcher_email = pattern_email.matcher(e_email.getText().toString());
-                            Matcher matcher_plateNo = pattern_plateNo.matcher(e_plateNo.getText().toString());
-                            if(TextUtils.isEmpty(e_userName.getText().toString()) ||TextUtils.isEmpty(e_phoneNumber.getText().toString()) ||
-                                    TextUtils.isEmpty(e_email.getText().toString()) || TextUtils.isEmpty(e_plateNo.getText().toString())) {
-                                Message message = new Message();
-                                message.what = UPDATEUSERINFO_NULL;
-                                handler.sendMessage(message);
-                            } else if (e_userName.getText().toString().length() > 20) {
-                                Toast.makeText(UserInfoActivity.this, R.string.account_check, Toast.LENGTH_SHORT).show();
-                            } else if (e_phoneNumber.getText().toString().length() != 11) {
-                                Toast.makeText(UserInfoActivity.this, R.string.phone_number_check, Toast.LENGTH_SHORT).show();
-                                //TODO :判断用户手机号是否与已注册的用户手机号有重复
-                            } else if (matcher_email.matches()) {
-                                Toast.makeText(UserInfoActivity.this, R.string.email_check, Toast.LENGTH_SHORT).show();
-                            } else if (matcher_plateNo.matches()) {
-                                Toast.makeText(UserInfoActivity.this, R.string.plateNo_check, Toast.LENGTH_SHORT).show();
-                                //TODO :判断用户邮箱是否与已注册的用户邮箱有重复
-                            } else {
-                                User user = new User();
-                                user.setUserId(Integer.parseInt(userId));
-                                user.setUserName(e_userName.getText().toString());
-                                user.setPhoneNumber(e_phoneNumber.getText().toString());
-                                user.setEmail(e_email.getText().toString());
-                                user.setPlateNo(e_plateNo.getText().toString());
-                                //修改数据库用户信息
-                                isSuccess2 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
-                                if(isSuccess2 == null) {
-                                    Message message = new Message();
-                                    message.what = UPDATEUSERINFO_ERROR;
-                                    handler.sendMessage(message);
-                                } else {
-                                    Message message = new Message();
-                                    message.what = UPDATEUSERINFO_SUCCESS;
-                                    handler.sendMessage(message);
+                        try {
+                            isSuccess = UserInfoClient.getByUserName(MyApp.getIpAddress(), e_userName.getText().toString());
+                            String[] strArray = isSuccess.split("#");
+                            server_userName = strArray[0];
+                            isSuccess = UserInfoClient.getByPhoneNumber(MyApp.getIpAddress(), e_phoneNumber.getText().toString());
+                            server_phoneNumber = isSuccess;
+                            isSuccess = UserInfoClient.getByEmail(MyApp.getIpAddress(), e_email.getText().toString());
+                            server_email = isSuccess;
+                            isSuccess = UserInfoClient.getByPlateNo(MyApp.getIpAddress(), e_plateNo.getText().toString().substring(1));
+                            server_plateNo = isSuccess;
+                            System.out.println("get from server :\n" + server_userName + "\n" + server_phoneNumber + "\n" + server_email + "\n" + server_plateNo);
+
+                            Thread server_post_thread;
+                            server_post_thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+
+                                        String email_check = "/^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$/";
+                                        String plateNo_check = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$";
+                                        Pattern pattern_email = Pattern.compile(email_check);
+                                        Pattern pattern_plateNo = Pattern.compile(plateNo_check);
+                                        Matcher matcher_email = pattern_email.matcher(e_email.getText().toString());
+                                        Matcher matcher_plateNo = pattern_plateNo.matcher(e_plateNo.getText().toString());
+
+                                        if (TextUtils.isEmpty(e_userName.getText().toString()) || TextUtils.isEmpty(e_phoneNumber.getText().toString()) ||
+                                                TextUtils.isEmpty(e_email.getText().toString()) || TextUtils.isEmpty(e_plateNo.getText().toString())) {
+                                            Message message = new Message();
+                                            message.what = UPDATEUSERINFO_NULL;
+                                            handler.sendMessage(message);
+                                        } else if (e_userName.getText().toString().length() > 20) {
+                                            Message message = new Message();
+                                            message.what = USERNAME_CHECK;
+                                            handler.sendMessage(message);
+                                        } else if (!server_userName.equals("error") && (!server_userName.equals(s_userName))) {
+                                            Message message = new Message();
+                                            message.what = USERNAME_REPEAT;
+                                            handler.sendMessage(message);
+                                        } else if (e_phoneNumber.getText().toString().length() != 11) {
+                                            Message message = new Message();
+                                            message.what = PHONE_NUMBER_CHECK;
+                                            handler.sendMessage(message);
+                                            //TODO :判断用户手机号是否与已注册的用户手机号有重复
+                                        } else if (!server_phoneNumber.equals("error") && (!server_phoneNumber.equals(s_phoneNumber))) {
+                                            Message message = new Message();
+                                            message.what = PHONE_NUMBER_REPEAT;
+                                            handler.sendMessage(message);
+                                        } else if (matcher_email.matches()) {
+                                            Message message = new Message();
+                                            message.what = EMAIL_CHECK;
+                                            handler.sendMessage(message);
+                                        } else if (!server_email.equals("error") && (!server_email.equals(s_email))) {
+                                            Message message = new Message();
+                                            message.what = EMAIL_REPEAT;
+                                            handler.sendMessage(message);
+                                        } else if (matcher_plateNo.matches()) {
+                                            Message message = new Message();
+                                            message.what = PLATENO_CHECK;
+                                            handler.sendMessage(message);
+                                            //TODO :判断用户邮箱是否与已注册的用户邮箱有重复
+                                        } else if (!server_plateNo.equals("error") && (!server_plateNo.equals(s_plateNo))) {
+                                            Message message = new Message();
+                                            message.what = PLATENO_REPEAT;
+                                            handler.sendMessage(message);
+                                        } else {
+                                            User user = new User();
+                                            user.setUserId(Integer.parseInt(userId));
+                                            System.out.println("chuan ru de userId shi ------------ : " + userId);
+//                                            if (!s_userName.equals(e_userName.getText().toString())) {
+//                                                user.setUserName(e_userName.getText().toString());
+//                                            }
+//                                            if (!s_phoneNumber.equals(e_phoneNumber.getText().toString())) {
+//                                                user.setPhoneNumber(e_phoneNumber.getText().toString());
+//                                            }
+//                                            if (!s_email.equals(e_email.getText().toString())) {
+//                                                user.setEmail(e_email.getText().toString());
+//                                            }
+//                                            if (!s_plateNo.equals(e_plateNo.getText().toString())) {
+//                                                user.setPlateNo(e_plateNo.getText().toString().substring(1));
+//                                            }
+                                            user.setUserName(e_userName.getText().toString());
+                                            user.setPhoneNumber(e_phoneNumber.getText().toString());
+                                            user.setEmail(e_email.getText().toString());
+                                            user.setPlateNo(e_plateNo.getText().toString().substring(1));
+                                            //修改数据库用户信息
+                                            isSuccess2 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
+                                            if (isSuccess2 == null) {
+                                                Message message = new Message();
+                                                message.what = UPDATEUSERINFO_ERROR;
+                                                handler.sendMessage(message);
+                                            } else {
+                                                Message message = new Message();
+                                                message.what = UPDATEUSERINFO_SUCCESS;
+                                                handler.sendMessage(message);
+                                            }
+                                        }
+                                    } catch (IllegalArgumentException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        }catch(IllegalArgumentException e){
+                            });
+                            server_post_thread.start();
+                        } catch (IllegalArgumentException e) {
                             e.printStackTrace();
                         }
                     }
@@ -146,9 +224,9 @@ public class UserInfoActivity extends AppCompatActivity {
         });
     }
 
-    private Handler handler = new Handler(){
-        public void handleMessage(Message message){
-            switch (message.what){
+    private Handler handler = new Handler() {
+        public void handleMessage(Message message) {
+            switch (message.what) {
                 case GETUSERINFO_ERROR:
                     Toast.makeText(UserInfoActivity.this, R.string.get_info_error, Toast.LENGTH_SHORT).show();
                     break;
@@ -157,17 +235,49 @@ public class UserInfoActivity extends AppCompatActivity {
                     String[] strArray = isSuccess1.split("#");
                     e_phoneNumber.setText(strArray[1]);
                     e_email.setText(strArray[2]);
-                    e_plateNo.setText(strArray[3]);
+                    e_plateNo.setText("京" + strArray[3]);
                     userId = strArray[4];
-                    System.out.println("get from server : " + userId);
+                    System.out.println("get from server ++++++++++++++++++++=: " + userId);
                     Toast.makeText(UserInfoActivity.this, R.string.get_info_success, Toast.LENGTH_SHORT).show();
                     break;
+
                 case UPDATEUSERINFO_NULL:
                     Toast.makeText(UserInfoActivity.this, R.string.update_user_info_null, Toast.LENGTH_SHORT).show();
                     break;
 
                 case UPDATEUSERINFO_ERROR:
                     Toast.makeText(UserInfoActivity.this, R.string.update_user_info_error, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case USERNAME_CHECK:
+                    Toast.makeText(UserInfoActivity.this, R.string.account_check, Toast.LENGTH_SHORT).show();
+                    break;
+                case USERNAME_REPEAT:
+                    Toast.makeText(UserInfoActivity.this, R.string.account_repeat, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case PHONE_NUMBER_CHECK:
+                    Toast.makeText(UserInfoActivity.this, R.string.phone_number_check, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case PHONE_NUMBER_REPEAT:
+                    Toast.makeText(UserInfoActivity.this, R.string.phone_number_repeat, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case EMAIL_CHECK:
+                    Toast.makeText(UserInfoActivity.this, R.string.email_check, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case EMAIL_REPEAT:
+                    Toast.makeText(UserInfoActivity.this, R.string.email_repeat, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case PLATENO_CHECK:
+                    Toast.makeText(UserInfoActivity.this, R.string.plateNo_check, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case PLATENO_REPEAT:
+                    Toast.makeText(UserInfoActivity.this, R.string.plateNo_repeat, Toast.LENGTH_SHORT).show();
                     break;
 
                 case UPDATEUSERINFO_SUCCESS:
