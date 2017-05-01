@@ -10,6 +10,7 @@
             android:layout_height="match_parent"
             android:clickable="true"/>
 
+
     <com.example.realgodjj.parking_system.baidu.MapStateView
             android:id="@+id/real_time_traffic_button"
             android:layout_width="40sp"
