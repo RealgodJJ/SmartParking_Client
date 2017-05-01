@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private GeoCoder search = null; // 搜索模块，也可去掉地图模块独立使用
     private PoiSearch poiSearch = null;// 搜索模块，用于搜索停车场
 
-    private MapStateView location, trafficCondition;
+    private MapStateView location, trafficCondition, searchDestination, searchParkingLot;
     private LocationClient mLocationClient = null;
     private BDLocationListener myListener = new MyLocationListener();
 
@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         baiduMapView = (MapView) findViewById(R.id.baidu_map);
         trafficCondition = (MapStateView) findViewById(R.id.real_time_traffic_button);
         location = (MapStateView) findViewById(R.id.location_button);
+        searchDestination = (MapStateView) findViewById(R.id.search_destination_button);
+        searchParkingLot = (MapStateView) findViewById(R.id.search_parkingLot_button);
         baiduMap = baiduMapView.getMap();
         //Open real time traffic
         baiduMap.setTrafficEnabled(true);
@@ -168,13 +170,13 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 }
                 break;
 
-            case R.id.des:
-                showDialogLayout(MainActivity.this);
-                break;
+//            case R.id.des:
+//                showDialogLayout(MainActivity.this);
+//                break;
 
-            case R.id.park_near:
-                searchParkingLotsByRadius(desLocation);
-                break;
+//            case R.id.park_near:
+//                searchParkingLotsByRadius(desLocation);
+//                break;
 
             case R.id.checkout:
                 checkout();
@@ -187,21 +189,15 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     public void resumeMenu(Menu menu) {
         if (!MyApp.isLogin()) {
             menu.findItem(R.id.login).setVisible(true);
-            menu.findItem(R.id.user_info).setVisible(true);
-            menu.findItem(R.id.des).setVisible(false);
-            menu.findItem(R.id.park_near).setVisible(false);
+            menu.findItem(R.id.user_info).setVisible(false);
+//            menu.findItem(R.id.des).setVisible(false);
+//            menu.findItem(R.id.park_near).setVisible(false);
             menu.findItem(R.id.checkout).setVisible(false);
         } else if (MyApp.isLogin() && !MyApp.isSureDestination()) {
             menu.findItem(R.id.login).setVisible(false);
             menu.findItem(R.id.user_info).setVisible(true);
-            menu.findItem(R.id.des).setVisible(true);
-            menu.findItem(R.id.park_near).setVisible(false);
-            menu.findItem(R.id.checkout).setVisible(true);
-        } else if (MyApp.isLogin() && MyApp.isSureDestination()) {
-            menu.findItem(R.id.login).setVisible(false);
-            menu.findItem(R.id.user_info).setVisible(true);
-            menu.findItem(R.id.des).setVisible(true);
-            menu.findItem(R.id.park_near).setVisible(true);
+//            menu.findItem(R.id.des).setVisible(true);
+//            menu.findItem(R.id.park_near).setVisible(false);
             menu.findItem(R.id.checkout).setVisible(true);
         }
     }
@@ -213,10 +209,9 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         final EditText inputDestination = (EditText) view.findViewById(R.id.dialog_main_input_destination_edit_text);
 
         AlertDialog.Builder build = new AlertDialog.Builder(context);
-        build.setIcon(R.drawable.icon);
+        build.setIcon(R.mipmap.map_destination_48);
         build.setTitle(R.string.destination1);
         build.setCancelable(false);
-        build.setIcon(R.drawable.icon);
         build.setView(view);
         build.setNegativeButton(R.string.search, new DialogInterface.OnClickListener() {
             @Override
@@ -314,6 +309,21 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 }
             }
         });
+
+        searchDestination.setmOnMapStateViewClickListener(new MapStateView.OnMapStateViewClickListener() {
+            @Override
+            public void mapStateViewClick(int currentState) {
+                showDialogLayout(MainActivity.this);
+            }
+        });
+
+        searchParkingLot.setmOnMapStateViewClickListener(new MapStateView.OnMapStateViewClickListener() {
+            @Override
+            public void mapStateViewClick(int currentState) {
+//                Toast.makeText(MainActivity.this, R.string.search_parkingLot, Toast.LENGTH_SHORT).show();
+                searchParkingLotsByRadius(desLocation);
+            }
+        });
     }
 
 
@@ -387,13 +397,12 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             super.onPoiClick(index);
 //            currClickPoi = getPoiResult().getAllPoi().get(index);
             MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index));
-            // if (poi.hasCaterDetails) {
-//            poiSearch.searchPoiDetail((new PoiDetailSearchOption())
-//                    .poiUid(currClickPoi.uid));
-            // }
             currClickId = index + 1;
             if(MyApp.isLogin()) {
                 showTabBelow();
+            } else {
+                Toast.makeText(MainActivity.this, R.string.sys_no_login, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
             return true;
         }

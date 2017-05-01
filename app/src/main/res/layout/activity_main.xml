@@ -28,6 +28,34 @@
             app:stereoStateIcon="@mipmap/main_icon_roadcondition_off"/>
 
     <com.example.realgodjj.parking_system.baidu.MapStateView
+            android:id="@+id/search_destination_button"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_below="@+id/real_time_traffic_button"
+            android:layout_alignLeft="@+id/real_time_traffic_button"
+            android:layout_alignStart="@+id/real_time_traffic_button"
+            app:mapBackgroudColor="@android:color/white"
+            app:mapIconMode="true"
+            app:mapStrokeColor="#abaaaa"
+            app:mapStrokeWidth="1px"
+            app:normalStateIcon="@mipmap/map_destination_48"
+            app:stereoStateIcon="@mipmap/map_destination_48"/>
+
+    <com.example.realgodjj.parking_system.baidu.MapStateView
+            android:id="@+id/search_parkingLot_button"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_alignLeft="@+id/real_time_traffic_button"
+            android:layout_below="@+id/search_destination_button"
+            app:mapBackgroudColor="@android:color/white"
+            app:mapIconMode="true"
+            app:mapStrokeColor="#abaaaa"
+            app:mapStrokeWidth="1px"
+            app:normalStateIcon="@mipmap/search_48"
+            app:stereoStateIcon="@mipmap/search_48"
+            android:layout_marginTop="14dp"/>
+
+    <com.example.realgodjj.parking_system.baidu.MapStateView
             android:id="@+id/location_button"
             android:layout_width="40sp"
             android:layout_height="40sp"
