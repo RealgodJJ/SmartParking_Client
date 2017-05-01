@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              tools:context="com.example.realgodjj.parking_system.OrderActivity">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reserve_order_detail"
+            android:textSize="22sp"
+            android:textColor="#f107e1"
+            android:gravity="center"/>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_best_park_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_best_park_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/parking_lot_name"
+                android:textSize="17sp"
+                android:textColor="#000"/>
+
+        <EditText
+                android:id="@+id/best_choice_best_park_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dip"
+                android:layout_toRightOf="@id/best_choice_best_park_text_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_park_address_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_best_park_relative_layout"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_park_address_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/parking_lot_address"
+                android:textSize="17sp"
+                android:textColor="#000"/>
+
+        <EditText
+                android:id="@+id/best_choice_park_address_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dip"
+                android:layout_toRightOf="@id/best_choice_park_address_text_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_total_spaces_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_park_address_relative_layout"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_total_spaces_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/total_spaces"
+                android:textSize="17sp"
+                android:textColor="#000"/>
+
+        <EditText
+                android:id="@+id/best_choice_total_spaces_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dip"
+                android:layout_toRightOf="@id/best_choice_total_spaces_text_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_total_available_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_total_spaces_relative_layout"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_total_available_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/total_available"
+                android:textSize="17sp"
+                android:textColor="#000"/>
+
+        <EditText
+                android:id="@+id/best_choice_total_available_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dip"
+                android:layout_toRightOf="@id/best_choice_total_available_text_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_start_time_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_total_available_relative_layout"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_start_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/start_time"
+                android:textColor="#000"
+                android:textSize="17sp"/>
+
+        <EditText
+                android:id="@+id/best_choice_start_time_hour_edit_text"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_start_time_text_view"/>
+
+        <TextView
+                android:id="@+id/best_choice_start_time_hour_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_start_time_hour_edit_text"
+                android:text="@string/reserve_hour"
+                android:layout_centerHorizontal="true"
+                android:textSize="17sp"/>
+        <EditText
+                android:id="@+id/best_choice_start_time_minute_edit_text"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_start_time_hour_text_view"/>
+
+        <TextView
+                android:id="@+id/best_choice_start_time_minute_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_start_time_minute_edit_text"
+                android:text="@string/reserve_minute"
+                android:layout_centerHorizontal="true"
+                android:textSize="17sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_end_time_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_start_time_relative_layout"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_end_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/end_time"
+                android:textColor="#000"
+                android:textSize="17sp"/>
+
+        <EditText
+                android:id="@+id/best_choice_end_time_hour_edit_text"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_end_time_text_view"
+                android:inputType="number"/>
+
+        <TextView
+                android:id="@+id/best_choice_end_time_hour_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_end_time_hour_edit_text"
+                android:text="@string/reserve_hour"
+                android:layout_centerHorizontal="true"
+                android:textSize="17sp"/>
+
+        <EditText
+                android:id="@+id/best_choice_end_time_minute_edit_text"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_end_time_hour_text_view"
+                android:inputType="number"/>
+
+        <TextView
+                android:id="@+id/best_choice_end_time_minute_text_view"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_end_time_minute_edit_text"
+                android:text="@string/reserve_minute"
+                android:layout_centerHorizontal="true"
+                android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_total_time_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_end_time_relative_layout"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_total_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/total_time"
+                android:textColor="#000"
+                android:textSize="17sp"/>
+
+        <EditText
+                android:id="@+id/best_choice_total_time_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#004cff"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginLeft="2dip"
+                android:layout_toRightOf="@id/best_choice_total_time_text_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_park_fee_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_park_fee_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/park_free"
+                android:textColor="#000"
+                android:textSize="17sp"/>
+
+        <EditText
+                android:id="@+id/best_choice_park_fee_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="2dip"
+                android:textColor="#ffa200"
+                android:gravity="center"
+                android:layout_toRightOf="@id/best_choice_park_fee_text_view"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_reserve_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_park_fee_relative_layout">
+
+        <Button
+                android:id="@+id/best_choice_reserve_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reserve_space"
+                android:textColor="#ffffff"
+                android:background="#00b7ff"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

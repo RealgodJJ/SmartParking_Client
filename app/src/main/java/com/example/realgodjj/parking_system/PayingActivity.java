@@ -24,9 +24,7 @@ public class PayingActivity extends AppCompatActivity {
         finishPaying = (Button) findViewById(R.id.paying_finish_paying_button);
         Bundle bundle = this.getIntent().getExtras();
         parkFee = bundle.getString("parkFee");
-        BigDecimal b = new BigDecimal(parkFee);
-        double fee = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        e_parkFee.setText(fee + "元");
+        e_parkFee.setText(parkFee + "元");
         e_parkFee.setEnabled(false);
         finishPaying.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -66,7 +66,7 @@
                 android:name=".ReserveActivity"
                 android:label="@string/reserve"/>
         <activity
-                android:name=".BestChoiceActivity"
+                android:name=".OrderActivity"
                 android:label="@string/best_estimate"/>
         <activity
                 android:name=".RoutePlanningActivity"
@@ -82,8 +82,13 @@
                 android:label="@string/start_timing"/>
         <activity
                 android:name=".ChangePasswordActivity"
-                android:label="@string/change_password">
-        </activity>
+                android:label="@string/change_password"/>
+        <activity
+                android:name=".SearchDestinationActivity"
+                android:label="@string/search"/>
+        <activity
+                android:name=".BestChoiceActivity"
+                android:label="@string/build_order"/>
     </application>
 
 </manifest>

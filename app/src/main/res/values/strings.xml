@@ -20,6 +20,9 @@
     <string name="sure_checkout">确定要注销吗?</string>
     <string name="checkout_success">注销成功!</string>
 
+    <!--SearchDestinationActivity-->
+    <string name="search_button">搜索</string>
+
     <!--LoginActivity-->
     <string name="sys_login">系统登录</string>
     <string name="user_info">用户信息</string>
@@ -133,8 +136,11 @@
     <string name="create_order_not_allowed">无法创建订单!</string>
 
     <!--BestChoiceActivity-->
-    <string name="reserve_order_detail">预订车位订单详情</string>
     <string name="best_estimate">最佳预估</string>
+
+    <!--OrderActivity-->
+    <string name="reserve_order_detail">预订车位订单详情</string>
+    <string name="build_order">创建订单</string>
     <string name="best_park">最佳停车点</string>
     <string name="park_free">预计停车费:</string>
     <string name="reserve_space">预约停车位</string>

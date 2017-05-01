@@ -1,7 +1,6 @@
 package com.example.realgodjj.parking_system;
 
 import android.content.Intent;
-import android.net.sip.SipRegistrationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -131,7 +130,7 @@ public class ReserveActivity extends AppCompatActivity {
                                 parkFee = dayTime * parkPrice + nightTime * parkNightPrice;
                                 System.out.println("parkFee : " + parkFee);
                                 totalTime = dayTime + nightTime;
-                                Intent intent = new Intent(ReserveActivity.this, BestChoiceActivity.class);
+                                Intent intent = new Intent(ReserveActivity.this, OrderActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("parkingLotUid", parkingLotUid);
                                 bundle.putString("parkingLotName", parkingLotName);

@@ -31,10 +31,7 @@ import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.baidu.MapStateView;
 
-
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements OnGetPoiSearchResultListener, OnGetGeoCoderResultListener, View.OnClickListener {
 
@@ -65,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private boolean isCreateMenu;
     private Menu thisMenu;
     private boolean isFirstLocation = true;
+
+    private String s_destination;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -199,6 +198,12 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 //            menu.findItem(R.id.des).setVisible(true);
 //            menu.findItem(R.id.park_near).setVisible(false);
             menu.findItem(R.id.checkout).setVisible(true);
+        } else if (MyApp.isLogin() && MyApp.isSureDestination()) {
+            menu.findItem(R.id.login).setVisible(false);
+            menu.findItem(R.id.user_info).setVisible(true);
+//            menu.findItem(R.id.des).setVisible(true);
+//            menu.findItem(R.id.park_near).setVisible(true);
+            menu.findItem(R.id.checkout).setVisible(true);
         }
     }
 
@@ -314,13 +319,14 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             @Override
             public void mapStateViewClick(int currentState) {
                 showDialogLayout(MainActivity.this);
+//                startActivity(new Intent(MainActivity.this, SearchDestinationActivity.class));
+//                finish();
             }
         });
 
         searchParkingLot.setmOnMapStateViewClickListener(new MapStateView.OnMapStateViewClickListener() {
             @Override
             public void mapStateViewClick(int currentState) {
-//                Toast.makeText(MainActivity.this, R.string.search_parkingLot, Toast.LENGTH_SHORT).show();
                 searchParkingLotsByRadius(desLocation);
             }
         });
@@ -388,7 +394,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     private class MyPoiOverlay extends PoiOverlay {
 
-        public MyPoiOverlay(BaiduMap baiduMap) {
+        private MyPoiOverlay(BaiduMap baiduMap) {
             super(baiduMap);
         }
 
@@ -425,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         parkInfo.setOnClickListener(this);
         reserve.setOnClickListener(this);
         guide.setOnClickListener(this);
-        optionBelow = new PopupWindow(belowPopupView, DensityUtil.getScreenWidth(this), (int) (DensityUtil.getScreenHeight(this) * 0.3f));
+        optionBelow = new PopupWindow(belowPopupView, DensityUtil.getScreenWidth(this), (int) (DensityUtil.getScreenHeight(this) * 0.4f));
         optionBelow.setFocusable(true);
         optionBelow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#dfdfdf")));
         optionBelow.setAnimationStyle(R.style.bottom_popup_anim);//显示和隐藏弹窗
@@ -440,6 +446,9 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         switch(view.getId()) {
             case R.id.route_planning_table_below_park_info_button:
                 parkInfo();
+                break;
+            case R.id.route_planning_table_below_best_choice_button:
+                bestChoice();
                 break;
             case R.id.route_planning_table_below_reserve_button:
                 reserveSpace();
@@ -480,6 +489,11 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 //                destination);
         MyApp.setIntent(true);
         startActivity(intent);
+    }
+
+    //最佳预估
+    private void bestChoice() {
+
     }
 
     //停车场的预订

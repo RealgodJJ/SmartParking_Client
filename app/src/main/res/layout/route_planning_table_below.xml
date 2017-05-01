@@ -24,6 +24,18 @@
                 android:textSize="23sp"/>
 
         <Button
+                android:id="@+id/route_planning_table_below_best_choice_button"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00ffea"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/best_estimate"
+                android:textSize="23sp"/>
+
+
+        <Button
                 android:id="@+id/route_planning_table_below_reserve_button"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"

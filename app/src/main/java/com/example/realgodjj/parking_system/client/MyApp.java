@@ -31,6 +31,8 @@ public class MyApp {
 
     private static boolean isResetPassword = false;
 
+    private static boolean isSearchDestination = false;
+
     public static boolean isLogin() {
         return isLogin;
     }
@@ -119,7 +121,15 @@ public class MyApp {
         return isResetPassword;
     }
 
-    public static void setResetPassword(boolean isResestPassword) {
-        MyApp.isResetPassword = isResestPassword;
+    public static void setResetPassword(boolean isResetPassword) {
+        MyApp.isResetPassword = isResetPassword;
+    }
+
+    public static boolean isSearchDestination() {
+        return isSearchDestination;
+    }
+
+    public static void setSearchDestination(boolean isSearchDestination) {
+        MyApp.isSearchDestination = isSearchDestination;
     }
 }
