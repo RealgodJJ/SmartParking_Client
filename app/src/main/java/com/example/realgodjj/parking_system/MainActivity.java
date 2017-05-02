@@ -26,7 +26,6 @@ import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.*;
 import com.baidu.mapapi.search.poi.*;
 import com.baidu.mapapi.search.route.PlanNode;
-import com.baidu.platform.comapi.map.B;
 import com.example.realgodjj.parking_system.baidu.PoiOverlay;
 import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
