@@ -18,6 +18,7 @@ import com.example.realgodjj.parking_system.client.ParkClient;
 import com.example.realgodjj.parking_system.client.ReserveClient;
 import com.example.realgodjj.parking_system.simulation.Park;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +38,7 @@ public class SetParkingActivity extends AppCompatActivity {
     private TimerTask timerTask_synchronize;
     private int hour, minute;
     private double parkPrice, parkNightPrice;
-    private double parkFee;
+    private double parkFee, fee;//"fee" is Keep double digits
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +181,9 @@ public class SetParkingActivity extends AppCompatActivity {
                 Bundle bundle1 = new Bundle();
                 bundle1.putString("totalHour", String.valueOf(totalHour));
                 bundle1.putString("totalMinute", String.valueOf(totalMinute));
-                bundle1.putString("parkFee", String.valueOf(parkFee));
+                BigDecimal b = new BigDecimal(parkFee);
+                fee = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                bundle1.putString("parkFee", String.valueOf(fee));
                 bundle1.putString("parkingLotUid", parkingLotUid);
                 intent.putExtras(bundle1);
                 startActivity(intent);

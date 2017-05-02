@@ -154,7 +154,6 @@ public class UserInfoActivity extends AppCompatActivity {
                                             Message message = new Message();
                                             message.what = PHONE_NUMBER_CHECK;
                                             handler.sendMessage(message);
-                                            //TODO :判断用户手机号是否与已注册的用户手机号有重复
                                         } else if (!server_phoneNumber.equals("error") && (!server_phoneNumber.equals(s_phoneNumber))) {
                                             Message message = new Message();
                                             message.what = PHONE_NUMBER_REPEAT;
@@ -171,7 +170,6 @@ public class UserInfoActivity extends AppCompatActivity {
                                             Message message = new Message();
                                             message.what = PLATENO_CHECK;
                                             handler.sendMessage(message);
-                                            //TODO :判断用户邮箱是否与已注册的用户邮箱有重复
                                         } else if (!server_plateNo.equals("error") && (!server_plateNo.equals(s_plateNo))) {
                                             Message message = new Message();
                                             message.what = PLATENO_REPEAT;

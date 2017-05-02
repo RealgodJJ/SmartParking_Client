@@ -26,6 +26,7 @@ import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.*;
 import com.baidu.mapapi.search.poi.*;
 import com.baidu.mapapi.search.route.PlanNode;
+import com.baidu.platform.comapi.map.B;
 import com.example.realgodjj.parking_system.baidu.PoiOverlay;
 import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
@@ -402,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         public boolean onPoiClick(int index) {
             super.onPoiClick(index);
 //            currClickPoi = getPoiResult().getAllPoi().get(index);
-            MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index));
+            MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index)); //TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! id----->uid
             currClickId = index + 1;
             if(MyApp.isLogin()) {
                 showTabBelow();
@@ -426,9 +427,11 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private void showTabBelow() {
         View belowPopupView = View.inflate(this, R.layout.route_planning_table_below, null);
         Button parkInfo = (Button) belowPopupView.findViewById(R.id.route_planning_table_below_park_info_button);
+        Button bestChoice = (Button) belowPopupView.findViewById(R.id.route_planning_table_below_best_choice_button);
         Button reserve = (Button) belowPopupView.findViewById(R.id.route_planning_table_below_reserve_button);
         Button guide = (Button) belowPopupView.findViewById(R.id.route_planning_table_below_guide_button);
         parkInfo.setOnClickListener(this);
+        bestChoice.setOnClickListener(this);
         reserve.setOnClickListener(this);
         guide.setOnClickListener(this);
         optionBelow = new PopupWindow(belowPopupView, DensityUtil.getScreenWidth(this), (int) (DensityUtil.getScreenHeight(this) * 0.4f));
@@ -462,7 +465,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     }
 
     //设定导航的起点和终点
-    @NonNull
+    @NonNull //TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! get startpoint and endpoint
     private RoutLinePlanots setPlanningRoad() {
         routLinePlanots = new RoutLinePlanots();
         PlanNode startNode = PlanNode.withLocation(new LatLng(MyApp.getCurrBDLocation().getLatitude(), MyApp.getCurrBDLocation().getLongitude()));
@@ -476,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private void parkInfo() {
         Intent intent = new Intent(MainActivity.this, ParkInfoActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);
+        bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);//TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! id---->uid
         bundle.putString("parkingLotName", MyApp.getCurrClickPoi().name);
         bundle.putString("parkingLotAddress" , MyApp.getCurrClickPoi().address);
         bundle.putString("parkingLotLatitude", String.valueOf(MyApp.getCurrClickPoi().location.latitude));
@@ -493,7 +496,8 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     //最佳预估
     private void bestChoice() {
-
+        Intent intent = new Intent(MainActivity.this, BestChoiceActivity.class);
+        startActivity(intent);
     }
 
     //停车场的预订
