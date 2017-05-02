@@ -54,22 +54,6 @@ public class UserChooseActivity extends AppCompatActivity {
         e_startTime_hour.setText(String.valueOf(currentHour));
         e_startTime_minute.setText(String.valueOf(currentMinute));
 
-
-//        //获取用户信息
-//        Thread post_thread;
-//        post_thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//
-//
-//                } catch (IllegalArgumentException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        post_thread.start();
-
         bestEstimate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,11 +71,12 @@ public class UserChooseActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(UserChooseActivity.this, BestChoiceActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("parkingFreeRate", s_parkingFreeRate);
-                    bundle.putString("distance", s_distance);
+                    bundle.putString("parkingFreeRate_rate", s_parkingFreeRate);
+                    bundle.putString("distance_rate", s_distance);
+                    bundle.putString("parkFee_rate", s_parkFee);
+                    bundle.putString("lightNum_rate", s_lightNum);
                     bundle.putDouble("nightTime", nightTime);
                     bundle.putDouble("dayTime", dayTime);
-                    bundle.putString("lightNum", s_lightNum);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }

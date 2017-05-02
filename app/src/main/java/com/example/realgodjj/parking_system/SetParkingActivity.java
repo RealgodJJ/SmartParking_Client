@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.realgodjj.parking_system.client.MyApp;
-import com.example.realgodjj.parking_system.client.ParkClient;
+import com.example.realgodjj.parking_system.client.ParkInfoClient;
 import com.example.realgodjj.parking_system.client.ReserveClient;
 import com.example.realgodjj.parking_system.simulation.Park;
 
@@ -80,7 +80,7 @@ public class SetParkingActivity extends AppCompatActivity {
                 try{
                     Park park = new Park();
                     park.setParkName(parkingLotUid);
-                    isSuccess = ParkClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
+                    isSuccess = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
                     if (isSuccess.equals("")) {
                         Message message = new Message();
                         message.what = GET_TOTAL_AVAILABLE_ERROR;

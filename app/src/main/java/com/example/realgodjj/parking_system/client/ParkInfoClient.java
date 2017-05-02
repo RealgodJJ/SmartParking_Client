@@ -7,7 +7,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
-public class ParkClient {
+public class ParkInfoClient {
     public static String getByParkId(String url, int parkId) {
         String isSuccess = "";
         ClientResource client = new ClientResource(url + "/park/" + parkId + "?choose=id");
