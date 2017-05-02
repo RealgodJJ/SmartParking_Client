@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,12 +29,11 @@ public class UserChooseActivity extends AppCompatActivity {
     private double dayTime, nightTime;//以小时记录的日间时间和夜间时间
     private int currentHour, currentMinute;
 
-//    private String userName;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_choose);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         userName = (TextView) findViewById(R.id.user_choose_username_text_view);
         e_parkingFreeRate = (EditText) findViewById(R.id.user_choose_parking_free_rate_edit_text);
         e_distance = (EditText) findViewById(R.id.user_choose_distance_edit_text);
@@ -426,6 +426,15 @@ public class UserChooseActivity extends AppCompatActivity {
         } else {
             e_total_time.setText("");
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

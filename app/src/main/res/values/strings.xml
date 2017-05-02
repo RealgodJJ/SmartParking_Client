@@ -148,11 +148,11 @@
 
     <!--BestChoiceActivity-->
     <string name="best_estimate">最佳预估</string>
+    <string name="best_park">最佳停车点:</string>
 
     <!--OrderActivity-->
     <string name="reserve_order_detail">预订车位订单详情</string>
     <string name="build_order">创建订单</string>
-    <string name="best_park">最佳停车点</string>
     <string name="park_free">预计停车费:</string>
     <string name="reserve_space">预约停车位</string>
     <string name="guide">开始导航</string>

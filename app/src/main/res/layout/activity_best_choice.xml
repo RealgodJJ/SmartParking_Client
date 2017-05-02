@@ -10,7 +10,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin">
 
     <RelativeLayout
-            android:id="@+id/user_choose_parking_free_rate_relative_layout"
+            android:id="@+id/best_choice_parking_name_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
@@ -18,118 +18,132 @@
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/user_choose_parking_free_rate_text_view"
+                android:id="@+id/best_choice_parking_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/best_park"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textColor="#00d4ff"/>
+
+        <EditText
+                android:id="@+id/best_choice_parking_name_edit_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@id/best_choice_parking_name_text_view"
+                android:gravity="center"
+                android:textColor="#ff0d00"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/best_choice_parking_free_rate_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/best_choice_parking_name_relative_layout"
+            android:layout_marginTop="14dp"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/best_choice_parking_free_rate_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/parking_free_rate"
                 android:gravity="center"
                 android:textSize="17sp"
-                android:textColor="#FFD700"/>
+                android:textColor="#00d4ff"/>
 
         <EditText
-                android:id="@+id/user_choose_parking_free_rate_edit_text"
+                android:id="@+id/best_choice_parking_free_rate_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dip"
-                android:layout_toRightOf="@id/user_choose_parking_free_rate_text_view"
+                android:layout_toRightOf="@id/best_choice_parking_free_rate_text_view"
                 android:gravity="center"
-                android:textColor="#ff0d00"
-                android:inputType="number"/>
+                android:textColor="#ff0d00"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/user_choose_distance_relative_layout"
+            android:id="@+id/best_choice_distance_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_choose_parking_free_rate_relative_layout"
+            android:layout_below="@id/best_choice_parking_free_rate_relative_layout"
             android:layout_marginTop="14dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/user_choose_distance_text_view"
+                android:id="@+id/best_choice_distance_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/distance"
                 android:gravity="center"
-                android:textColor="#FFD700"
+                android:textColor="#00d4ff"
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/user_choose_distance_edit_text"
+                android:id="@+id/best_choice_distance_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="8dip"
-                android:layout_toRightOf="@id/user_choose_distance_text_view"
+                android:layout_toRightOf="@id/best_choice_distance_text_view"
                 android:textColor="#ff0d00"
-                android:gravity="center"
-                android:inputType="number"/>
+                android:gravity="center"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/user_choose_parkFee_relative_layout"
+            android:id="@+id/best_choice_parkFee_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_choose_distance_relative_layout"
+            android:layout_below="@id/best_choice_distance_relative_layout"
             android:layout_marginTop="14dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/user_choose_parkFee_text_view"
+                android:id="@+id/best_choice_parkFee_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/parkFee"
                 android:gravity="center"
-                android:textColor="#FFD700"
+                android:textColor="#00d4ff"
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/user_choose_parkFee_edit_text"
+                android:id="@+id/best_choice_parkFee_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="8dip"
-                android:layout_toRightOf="@id/user_choose_parkFee_text_view"
+                android:layout_toRightOf="@id/best_choice_parkFee_text_view"
                 android:textColor="#ff0d00"
-                android:gravity="center"
-                android:inputType="number"/>
+                android:gravity="center"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/user_choose_lightNum_relative_layout"
+            android:id="@+id/button_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_choose_parkFee_relative_layout"
-            android:layout_marginTop="14dp"
-            android:clickable="true"
-            android:gravity="center_vertical">
+            android:layout_below="@id/best_choice_parkFee_relative_layout"
+            android:layout_marginTop="20dp">
 
-        <TextView
-                android:id="@+id/user_choose_lightNum_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@string/lightNum"
-                android:gravity="center"
-                android:textColor="#FFD700"
-                android:textSize="17sp"/>
-
-        <EditText
-                android:id="@+id/user_choose_lightNum_edit_text"
+        <Button
+                android:id="@+id/best_choice_reserve_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="8dip"
-                android:layout_toRightOf="@id/user_choose_lightNum_text_view"
-                android:textColor="#ff0d00"
-                android:gravity="center"
-                android:inputType="number"/>
+                android:text="@string/reserve_space"
+                android:background="#c5c7e6"
+                android:textSize="25sp"
+                android:textColor="#ffffff"/>
+
     </RelativeLayout>
 
 </RelativeLayout>
