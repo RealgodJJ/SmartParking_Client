@@ -56,7 +56,7 @@ public class UserInfoActivity extends AppCompatActivity {
         e_plateNo = (EditText) findViewById(R.id.user_info_plateNo_edit_text);
         changeInfo = (Button) findViewById(R.id.user_info_change_user_info_button);
         saveInfo = (Button) findViewById(R.id.user_info_save_user_info_button);
-        head_picture.setImageResource(R.drawable.head);
+        head_picture.setImageResource(R.drawable.user_info);
         e_userName.setEnabled(false);
         e_phoneNumber.setEnabled(false);
         e_email.setEnabled(false);

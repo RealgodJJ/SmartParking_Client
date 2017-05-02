@@ -89,6 +89,8 @@
         <activity
                 android:name=".BestChoiceActivity"
                 android:label="@string/build_order"/>
+        <activity android:name=".UserChooseActivity">
+        </activity>
     </application>
 
 </manifest>

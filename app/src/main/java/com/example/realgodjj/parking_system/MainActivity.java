@@ -496,7 +496,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     //最佳预估
     private void bestChoice() {
-        Intent intent = new Intent(MainActivity.this, BestChoiceActivity.class);
+        Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
         startActivity(intent);
     }
 

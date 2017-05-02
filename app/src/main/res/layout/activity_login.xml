@@ -80,6 +80,7 @@
                     android:layout_toRightOf="@id/password_text_view"
                     android:hint="@string/pwd1"/>
         </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout

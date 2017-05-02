@@ -135,6 +135,16 @@
     <string name="create_order">创建预订订单</string>
     <string name="create_order_not_allowed">无法创建订单!</string>
 
+    <!--UserChooseActivity-->
+    <string name="respectful">尊敬的</string>
+    <string name="hello">您好:</string>
+    <string name="user_choose">请按照您认为以下因素的重要性进行排序(1到4):</string>
+    <string name="parking_free_rate">车位空闲率(可用车位/总共车位):</string>
+    <string name="distance">停车场到目的地的距离:</string>
+    <string name="lightNum">路况交通情况:</string>
+    <string name="input_time">请输入停车的时段:</string>
+    <string name="input_number_error">输入的数字不合法!</string>
+
     <!--BestChoiceActivity-->
     <string name="best_estimate">最佳预估</string>
 
