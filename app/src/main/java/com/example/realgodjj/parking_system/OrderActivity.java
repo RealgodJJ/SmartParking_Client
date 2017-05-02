@@ -39,17 +39,17 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        e_bestPark = (EditText) findViewById(R.id.best_choice_best_park_edit_text);
-        e_parkingLotAddress = (EditText) findViewById(R.id.best_choice_park_address_edit_text);
-        e_totalSpaces = (EditText) findViewById(R.id.best_choice_total_spaces_edit_text);
-        e_totalAvailable = (EditText) findViewById(R.id.best_choice_total_available_edit_text);
-        e_startTime_hour = (EditText) findViewById(R.id.best_choice_start_time_hour_edit_text);
-        e_startTime_minute = (EditText) findViewById(R.id.best_choice_start_time_minute_edit_text);
-        e_endTime_hour = (EditText) findViewById(R.id.best_choice_end_time_hour_edit_text);
-        e_endTime_minute = (EditText) findViewById(R.id.best_choice_end_time_minute_edit_text);
-        e_totalTime = (EditText) findViewById(R.id.best_choice_total_time_edit_text);
-        e_parkFee = (EditText) findViewById(R.id.best_choice_park_fee_edit_text);
-        reserve = (Button) findViewById(R.id.best_choice_reserve_button);
+        e_bestPark = (EditText) findViewById(R.id.order_best_park_edit_text);
+        e_parkingLotAddress = (EditText) findViewById(R.id.order_park_address_edit_text);
+        e_totalSpaces = (EditText) findViewById(R.id.order_total_spaces_edit_text);
+        e_totalAvailable = (EditText) findViewById(R.id.order_total_available_edit_text);
+        e_startTime_hour = (EditText) findViewById(R.id.order_start_time_hour_edit_text);
+        e_startTime_minute = (EditText) findViewById(R.id.order_start_time_minute_edit_text);
+        e_endTime_hour = (EditText) findViewById(R.id.order_end_time_hour_edit_text);
+        e_endTime_minute = (EditText) findViewById(R.id.order_end_time_minute_edit_text);
+        e_totalTime = (EditText) findViewById(R.id.order_total_time_edit_text);
+        e_parkFee = (EditText) findViewById(R.id.order_park_fee_edit_text);
+        reserve = (Button) findViewById(R.id.order_reserve_button);
 
         getIntentInfo();
 

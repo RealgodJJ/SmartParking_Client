@@ -67,7 +67,7 @@
                 android:label="@string/reserve"/>
         <activity
                 android:name=".OrderActivity"
-                android:label="@string/best_estimate"/>
+                android:label="@string/build_order"/>
         <activity
                 android:name=".RoutePlanningActivity"
                 android:label="@string/drive_route"/>
@@ -87,10 +87,11 @@
                 android:name=".SearchDestinationActivity"
                 android:label="@string/search"/>
         <activity
+                android:name=".UserChooseActivity"
+                android:label="@string/user_choose"/>
+        <activity
                 android:name=".BestChoiceActivity"
-                android:label="@string/build_order"/>
-        <activity android:name=".UserChooseActivity">
-        </activity>
+                android:label="@string/best_estimate"/>
     </application>
 
 </manifest>

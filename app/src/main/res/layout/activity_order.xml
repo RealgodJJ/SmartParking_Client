@@ -18,7 +18,7 @@
             android:gravity="center"/>
 
     <RelativeLayout
-            android:id="@+id/best_choice_best_park_relative_layout"
+            android:id="@+id/order_best_park_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
@@ -26,7 +26,7 @@
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_best_park_text_view"
+                android:id="@+id/order_best_park_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -35,26 +35,26 @@
                 android:textColor="#000"/>
 
         <EditText
-                android:id="@+id/best_choice_best_park_edit_text"
+                android:id="@+id/order_best_park_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dip"
-                android:layout_toRightOf="@id/best_choice_best_park_text_view"/>
+                android:layout_toRightOf="@id/order_best_park_text_view"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_park_address_relative_layout"
+            android:id="@+id/order_park_address_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_best_park_relative_layout"
+            android:layout_below="@id/order_best_park_relative_layout"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_park_address_text_view"
+                android:id="@+id/order_park_address_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -63,26 +63,26 @@
                 android:textColor="#000"/>
 
         <EditText
-                android:id="@+id/best_choice_park_address_edit_text"
+                android:id="@+id/order_park_address_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dip"
-                android:layout_toRightOf="@id/best_choice_park_address_text_view"/>
+                android:layout_toRightOf="@id/order_park_address_text_view"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_total_spaces_relative_layout"
+            android:id="@+id/order_total_spaces_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_park_address_relative_layout"
+            android:layout_below="@id/order_park_address_relative_layout"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_total_spaces_text_view"
+                android:id="@+id/order_total_spaces_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -91,27 +91,27 @@
                 android:textColor="#000"/>
 
         <EditText
-                android:id="@+id/best_choice_total_spaces_edit_text"
+                android:id="@+id/order_total_spaces_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dip"
-                android:layout_toRightOf="@id/best_choice_total_spaces_text_view"/>
+                android:layout_toRightOf="@id/order_total_spaces_text_view"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_total_available_relative_layout"
+            android:id="@+id/order_total_available_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_total_spaces_relative_layout"
+            android:layout_below="@id/order_total_spaces_relative_layout"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_total_available_text_view"
+                android:id="@+id/order_total_available_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -120,26 +120,26 @@
                 android:textColor="#000"/>
 
         <EditText
-                android:id="@+id/best_choice_total_available_edit_text"
+                android:id="@+id/order_total_available_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dip"
-                android:layout_toRightOf="@id/best_choice_total_available_text_view"/>
+                android:layout_toRightOf="@id/order_total_available_text_view"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_start_time_relative_layout"
+            android:id="@+id/order_start_time_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_total_available_relative_layout"
+            android:layout_below="@id/order_total_available_relative_layout"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_start_time_text_view"
+                android:id="@+id/order_start_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -148,7 +148,7 @@
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/best_choice_start_time_hour_edit_text"
+                android:id="@+id/order_start_time_hour_edit_text"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
@@ -156,20 +156,20 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_start_time_text_view"/>
+                android:layout_toRightOf="@id/order_start_time_text_view"/>
 
         <TextView
-                android:id="@+id/best_choice_start_time_hour_text_view"
+                android:id="@+id/order_start_time_hour_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_start_time_hour_edit_text"
+                android:layout_toRightOf="@id/order_start_time_hour_edit_text"
                 android:text="@string/reserve_hour"
                 android:layout_centerHorizontal="true"
                 android:textSize="17sp"/>
         <EditText
-                android:id="@+id/best_choice_start_time_minute_edit_text"
+                android:id="@+id/order_start_time_minute_edit_text"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
@@ -177,30 +177,30 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_start_time_hour_text_view"/>
+                android:layout_toRightOf="@id/order_start_time_hour_text_view"/>
 
         <TextView
-                android:id="@+id/best_choice_start_time_minute_text_view"
+                android:id="@+id/order_start_time_minute_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_start_time_minute_edit_text"
+                android:layout_toRightOf="@id/order_start_time_minute_edit_text"
                 android:text="@string/reserve_minute"
                 android:layout_centerHorizontal="true"
                 android:textSize="17sp"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_end_time_relative_layout"
+            android:id="@+id/order_end_time_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_start_time_relative_layout"
+            android:layout_below="@id/order_start_time_relative_layout"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_end_time_text_view"
+                android:id="@+id/order_end_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -209,45 +209,45 @@
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/best_choice_end_time_hour_edit_text"
+                android:id="@+id/order_end_time_hour_edit_text"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_end_time_text_view"
+                android:layout_toRightOf="@id/order_end_time_text_view"
                 android:inputType="number"/>
 
         <TextView
-                android:id="@+id/best_choice_end_time_hour_text_view"
+                android:id="@+id/order_end_time_hour_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_end_time_hour_edit_text"
+                android:layout_toRightOf="@id/order_end_time_hour_edit_text"
                 android:text="@string/reserve_hour"
                 android:layout_centerHorizontal="true"
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/best_choice_end_time_minute_edit_text"
+                android:id="@+id/order_end_time_minute_edit_text"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textColor="#ff0000"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_end_time_hour_text_view"
+                android:layout_toRightOf="@id/order_end_time_hour_text_view"
                 android:inputType="number"/>
 
         <TextView
-                android:id="@+id/best_choice_end_time_minute_text_view"
+                android:id="@+id/order_end_time_minute_text_view"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_end_time_minute_edit_text"
+                android:layout_toRightOf="@id/order_end_time_minute_edit_text"
                 android:text="@string/reserve_minute"
                 android:layout_centerHorizontal="true"
                 android:textSize="17sp"/>
@@ -255,15 +255,15 @@
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_total_time_relative_layout"
+            android:id="@+id/order_total_time_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_end_time_relative_layout"
+            android:layout_below="@id/order_end_time_relative_layout"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_total_time_text_view"
+                android:id="@+id/order_total_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -272,25 +272,25 @@
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/best_choice_total_time_edit_text"
+                android:id="@+id/order_total_time_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#004cff"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:layout_marginLeft="2dip"
-                android:layout_toRightOf="@id/best_choice_total_time_text_view"/>
+                android:layout_toRightOf="@id/order_total_time_text_view"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_park_fee_relative_layout"
+            android:id="@+id/order_park_fee_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/best_choice_park_fee_text_view"
+                android:id="@+id/order_park_fee_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -299,24 +299,24 @@
                 android:textSize="17sp"/>
 
         <EditText
-                android:id="@+id/best_choice_park_fee_edit_text"
+                android:id="@+id/order_park_fee_edit_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="2dip"
                 android:textColor="#ffa200"
                 android:gravity="center"
-                android:layout_toRightOf="@id/best_choice_park_fee_text_view"/>
+                android:layout_toRightOf="@id/order_park_fee_text_view"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/best_choice_reserve_relative_layout"
+            android:id="@+id/order_reserve_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/best_choice_park_fee_relative_layout">
+            android:layout_below="@id/order_park_fee_relative_layout">
 
         <Button
-                android:id="@+id/best_choice_reserve_button"
+                android:id="@+id/order_reserve_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/reserve_space"
