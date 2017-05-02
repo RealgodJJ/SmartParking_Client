@@ -75,16 +75,34 @@ public class BestChoiceActivity extends AppCompatActivity {
                     break;
                 case GETPARKINFO_SUCCESS:
                     String[] strArray2 = getParkInfo2.split("!");
-                    String[] strArray4 = getParkInfo4.split("!");
-                    String[] strArray5 = getParkInfo5.split("!");
                     totalSpaces2 = Integer.parseInt(strArray2[0]);
                     totalAvailable2 = Integer.parseInt(strArray2[1]);
                     dayPrice2 = Double.parseDouble(strArray2[2]);
                     nightPrice2 = Double.parseDouble(strArray2[3]);
                     parkFee2 = nightPrice2 * nightTime + dayPrice2 * dayTime;
-                    BigDecimal b = new BigDecimal(parkFee2);
-                    parkFee2 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    System.out.println("\n\n\nnightTime : " + nightTime + "dayTime : " + dayTime + "parkFee : " + parkFee2);
+                    BigDecimal a = new BigDecimal(parkFee2);
+                    parkFee2 = a.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+                    String[] strArray4 = getParkInfo4.split("!");
+                    totalSpaces4 = Integer.parseInt(strArray4[0]);
+                    totalAvailable4 = Integer.parseInt(strArray4[1]);
+                    dayPrice4 = Double.parseDouble(strArray4[2]);
+                    nightPrice4 = Double.parseDouble(strArray4[3]);
+                    parkFee4 = nightPrice4 * nightTime + dayPrice4 * dayTime;
+                    BigDecimal b = new BigDecimal(parkFee4);
+                    parkFee4 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+                    String[] strArray5 = getParkInfo5.split("!");
+                    totalSpaces5 = Integer.parseInt(strArray5[0]);
+                    totalAvailable5 = Integer.parseInt(strArray5[1]);
+                    dayPrice5 = Double.parseDouble(strArray5[2]);
+                    nightPrice5 = Double.parseDouble(strArray5[3]);
+                    parkFee5 = nightPrice5 * nightTime + dayPrice5 * dayTime;
+                    BigDecimal c = new BigDecimal(parkFee5);
+                    parkFee5 = c.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+                    System.out.println("\n\n\nnightTime : " + nightTime + "dayTime : " + dayTime +
+                            "\nparkFee2 : " + parkFee2 + "\nparkFee4 : " + parkFee4 + "\nparkFee5 : " + parkFee5);
                     Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
                     break;
                 default:
