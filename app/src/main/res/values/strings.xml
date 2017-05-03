@@ -19,6 +19,7 @@
     <string name="park_info">停车场信息</string>
     <string name="sure_checkout">确定要注销吗?</string>
     <string name="checkout_success">注销成功!</string>
+    <string name="please_user_choose">请您选择几个候选的停车场:</string>
 
     <!--SearchDestinationActivity-->
     <string name="search_button">搜索</string>

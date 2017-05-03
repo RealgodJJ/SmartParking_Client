@@ -17,7 +17,7 @@ public class MyApp {
 
     private static boolean isIntent = false;
 
-    private static String ipAddress = "http://192.168.1.106:8085";
+    private static String ipAddress = "http://10.25.40.125:8085";
 
     private static String userName = "";
 
@@ -32,6 +32,8 @@ public class MyApp {
     private static boolean isResetPassword = false;
 
     private static boolean isSearchDestination = false;
+
+    private static boolean isBestChoice = false;
 
     public static boolean isLogin() {
         return isLogin;
@@ -131,5 +133,13 @@ public class MyApp {
 
     public static void setSearchDestination(boolean isSearchDestination) {
         MyApp.isSearchDestination = isSearchDestination;
+    }
+
+    public static boolean isBestChoice() {
+        return isBestChoice;
+    }
+
+    public static void setBestChoice(boolean isBestChoice) {
+        MyApp.isBestChoice = isBestChoice;
     }
 }

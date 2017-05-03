@@ -24,6 +24,8 @@ public class UserChooseActivity extends AppCompatActivity {
     private EditText e_startTime_hour, e_startTime_minute, e_endTime_hour, e_endTime_minute, e_total_time;
     private Button bestEstimate;
 
+    private String getParkingLotUid[] = new String[10];
+
     private String s_parkingFreeRate, s_distance, s_parkFee, s_lightNum;
     private double totalHour = 0, totalMinute = 0;
     private double dayTime, nightTime;//以小时记录的日间时间和夜间时间
@@ -53,6 +55,13 @@ public class UserChooseActivity extends AppCompatActivity {
         currentMinute = c.get(Calendar.MINUTE);
         e_startTime_hour.setText(String.valueOf(currentHour));
         e_startTime_minute.setText(String.valueOf(currentMinute));
+
+        if(MyApp.isBestChoice()) {
+//            Bundle bundle = this.getIntent().getExtras();
+            Intent intent = getIntent();
+            getParkingLotUid = intent.getStringArrayExtra("parkingLotUid") ;
+            System.out.println(getParkingLotUid[0] + "\n" + getParkingLotUid[1] + "\n" + getParkingLotUid[2]);
+        }
 
         bestEstimate.setOnClickListener(new View.OnClickListener() {
             @Override

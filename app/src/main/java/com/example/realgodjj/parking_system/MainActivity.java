@@ -12,10 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.*;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.PopupWindow;
-import android.widget.Toast;
+import android.widget.*;
 import com.baidu.location.*;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.*;
@@ -31,6 +28,7 @@ import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.baidu.MapStateView;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnGetPoiSearchResultListener, OnGetGeoCoderResultListener, View.OnClickListener {
@@ -42,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private GeoCoder search = null; // 搜索模块，也可去掉地图模块独立使用
     private PoiSearch poiSearch = null;// 搜索模块，用于搜索停车场
 
+    private TextView pleaseUserChoose;
     private MapStateView location, trafficCondition, searchDestination, searchParkingLot;
+    private Button sureParkingLots;
     private LocationClient mLocationClient = null;
     private BDLocationListener myListener = new MyLocationListener();
 
@@ -53,7 +53,10 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     //获取点击停车场的信息
 //    private BDLocation currBDLocation;
-    private PoiInfo currClickPoi;
+    private PoiInfo currClickPoi[] = new PoiInfo[10];
+    private String parkingLotUid[] = new String[10];
+    private int i = 0;
+    //    private PoiInfo currClickPoi1, currClickPoi2, currClickPoi3;
     private int currClickId;
     private RoutLinePlanots routLinePlanots;
     private PopupWindow optionBelow;
@@ -78,6 +81,17 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         //初始化搜索停车场模块，注册事件监听
         poiSearch = PoiSearch.newInstance();
         poiSearch.setOnGetPoiSearchResultListener(this);
+
+        sureParkingLots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("parkingLotUid", parkingLotUid);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -110,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         location = (MapStateView) findViewById(R.id.location_button);
         searchDestination = (MapStateView) findViewById(R.id.search_destination_button);
         searchParkingLot = (MapStateView) findViewById(R.id.search_parkingLot_button);
+        pleaseUserChoose = (TextView) findViewById(R.id.please_user_choose);
+        sureParkingLots = (Button) findViewById(R.id.sure_parkingLot_button);
+
         baiduMap = baiduMapView.getMap();
         //Open real time traffic
         baiduMap.setTrafficEnabled(true);
@@ -185,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     }
 
     //刷新菜单
-    public void resumeMenu(Menu menu) {
+    private void resumeMenu(Menu menu) {
         if (!MyApp.isLogin()) {
             menu.findItem(R.id.login).setVisible(true);
             menu.findItem(R.id.user_info).setVisible(false);
@@ -241,13 +258,12 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     //搜索周边停车场
     private void searchParkingLotsByRadius(LatLng desLocation) {
-        if(MyApp.isSureDestination()) {
+        if (MyApp.isSureDestination()) {
             poiSearch.searchNearby(new PoiNearbySearchOption()
                     .keyword("停车场")
                     .location(desLocation).pageCapacity(10).radius(10000)
                     .sortType(PoiSortType.distance_from_near_to_far));
-        }
-        else
+        } else
             Toast.makeText(MainActivity.this, R.string.no_parking_lots, Toast.LENGTH_SHORT).show();
     }
 
@@ -401,10 +417,21 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         @Override
         public boolean onPoiClick(int index) {
             super.onPoiClick(index);
-//            currClickPoi = getPoiResult().getAllPoi().get(index);
             MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index)); //TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! id----->uid
             currClickId = index + 1;
-            if(MyApp.isLogin()) {
+            if (MyApp.isBestChoice()) {
+                currClickPoi[i] = getPoiResult().getAllPoi().get(index);
+                parkingLotUid[i] = currClickPoi[i].uid;
+                //不录入重复的parkingLotUid
+//                if (i >= 1) {
+
+//                } else {
+                    System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
+                    i++;
+//                }
+            }
+
+            else if (MyApp.isLogin()) {
                 showTabBelow();
             } else {
                 Toast.makeText(MainActivity.this, R.string.sys_no_login, Toast.LENGTH_SHORT).show();
@@ -445,12 +472,15 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     public void onClick(View view) {
         optionBelow.dismiss();
         MyApp.setCurrentParkId(currClickId);
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.route_planning_table_below_park_info_button:
                 parkInfo();
                 break;
             case R.id.route_planning_table_below_best_choice_button:
-                bestChoice();
+                pleaseUserChoose.setVisibility(View.VISIBLE);
+                sureParkingLots.setVisibility(View.VISIBLE);
+                MyApp.setBestChoice(true);
+//                bestChoice();
                 break;
             case R.id.route_planning_table_below_reserve_button:
                 reserveSpace();
@@ -480,7 +510,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         Bundle bundle = new Bundle();
         bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);//TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! id---->uid
         bundle.putString("parkingLotName", MyApp.getCurrClickPoi().name);
-        bundle.putString("parkingLotAddress" , MyApp.getCurrClickPoi().address);
+        bundle.putString("parkingLotAddress", MyApp.getCurrClickPoi().address);
         bundle.putString("parkingLotLatitude", String.valueOf(MyApp.getCurrClickPoi().location.latitude));
         bundle.putString("parkingLotLongitude", String.valueOf(MyApp.getCurrClickPoi().location.longitude));
         bundle.putString("destination", destination);
@@ -495,8 +525,10 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     //最佳预估
     private void bestChoice() {
-        Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
-        startActivity(intent);
+//        MyApp.setBestChoice(true);
+        if (i == 10) {
+
+        }
     }
 
     //停车场的预订
@@ -505,7 +537,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         Bundle bundle = new Bundle();
         bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);
         bundle.putString("parkingLotName", MyApp.getCurrClickPoi().name);
-        bundle.putString("parkingLotAddress",MyApp.getCurrClickPoi().address);
+        bundle.putString("parkingLotAddress", MyApp.getCurrClickPoi().address);
 
         routLinePlanots = setPlanningRoad();
         bundle.putParcelable(RoutePlanningActivity.ROUTE_PLANNING, routLinePlanots);

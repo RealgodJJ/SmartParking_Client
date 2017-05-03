@@ -4,11 +4,23 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <com.baidu.mapapi.map.MapView
             android:id="@+id/baidu_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"/>
+
+
+        <TextView
+                android:id="@+id/please_user_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_search_bg"
+                android:text="@string/please_user_choose"
+                android:textSize="20sp"
+                android:textColor="#ff0000"
+                android:visibility="gone"/>
 
 
     <com.example.realgodjj.parking_system.baidu.MapStateView
@@ -70,5 +82,17 @@
             app:noCurrentLocationIcon="@mipmap/main_icon_location"
             app:normalStateIcon="@mipmap/main_icon_follow"
             app:stereoStateIcon="@mipmap/main_icon_compass"/>
+
+    <Button
+            android:id="@+id/sure_parkingLot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/location_button"
+            android:layout_centerHorizontal="true"
+            android:background="#ff0000"
+            android:text="@string/sure"
+            android:textSize="20sp"
+            android:textColor="@color/color_white"
+            android:visibility="gone"/>
 
 </RelativeLayout>
