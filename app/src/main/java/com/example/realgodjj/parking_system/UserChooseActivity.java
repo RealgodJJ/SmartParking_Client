@@ -24,7 +24,10 @@ public class UserChooseActivity extends AppCompatActivity {
     private EditText e_startTime_hour, e_startTime_minute, e_endTime_hour, e_endTime_minute, e_total_time;
     private Button bestEstimate;
 
-    private String getParkingLotUid[] = new String[10];
+    private String parkingLotUid[] = new String[10];
+    private double parkingLotLatitude[] = new double[10];
+    private double parkingLotLongitude[] = new double[10];
+    private double endLatitude, endLongitude;
 
     private String s_parkingFreeRate, s_distance, s_parkFee, s_lightNum;
     private double totalHour = 0, totalMinute = 0;
@@ -57,10 +60,16 @@ public class UserChooseActivity extends AppCompatActivity {
         e_startTime_minute.setText(String.valueOf(currentMinute));
 
         if(MyApp.isBestChoice()) {
-//            Bundle bundle = this.getIntent().getExtras();
             Intent intent = getIntent();
-            getParkingLotUid = intent.getStringArrayExtra("parkingLotUid") ;
-            System.out.println(getParkingLotUid[0] + "\n" + getParkingLotUid[1] + "\n" + getParkingLotUid[2]);
+            Bundle bundle = this.getIntent().getExtras();
+            endLatitude = bundle.getDouble("endLatitude");
+            endLongitude = bundle.getDouble("endLongitude");
+            parkingLotUid = intent.getStringArrayExtra("parkingLotUid");
+            parkingLotLatitude = intent.getDoubleArrayExtra("parkingLotLatitude");
+            parkingLotLongitude = intent.getDoubleArrayExtra("parkingLotLongitude");
+            System.out.println(parkingLotUid[0] + "\n" + parkingLotUid[1] + "\n" + parkingLotUid[2]);
+            System.out.println(parkingLotLatitude[0] + "\n" + parkingLotLatitude[1] + "\n" + parkingLotLatitude[2]);
+            System.out.println(parkingLotLongitude[0] + "\n" + parkingLotLongitude[1] + "\n" + parkingLotLongitude[2]);
         }
 
         bestEstimate.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +95,11 @@ public class UserChooseActivity extends AppCompatActivity {
                     bundle.putString("lightNum_rate", s_lightNum);
                     bundle.putDouble("nightTime", nightTime);
                     bundle.putDouble("dayTime", dayTime);
+                    bundle.putDouble("endLatitude", endLatitude);
+                    bundle.putDouble("endLongitude", endLongitude);
+                    bundle.putSerializable("parkingLotUid", parkingLotUid);
+                    bundle.putSerializable("parkingLotLatitude", parkingLotLatitude);
+                    bundle.putSerializable("parkingLotLongitude", parkingLotLongitude);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }

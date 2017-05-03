@@ -1,5 +1,6 @@
 package com.example.realgodjj.parking_system;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -32,9 +33,7 @@ public class BestChoiceActivity extends AppCompatActivity {
     private static final String parkUId5 = "529cb484e57dffd0f6eafcad";
     private String getParkInfo2, getParkInfo4, getParkInfo5;
 
-    private PoiOverlay poiOverlay;
-    private PoiInfo currClickPoi;
-    private RoutLinePlanots routLinePlanots;
+    private RoutLinePlanots routLinePlanotsBetweenStartToEnd, routLinePlanotsBetweenParkingLotToEnd;
     private RoutePlanSearch routePlanSearch;
     private int duration;
     private double distance;
@@ -42,6 +41,10 @@ public class BestChoiceActivity extends AppCompatActivity {
 
     private static final int GETPARKINFO_ERROR = 1;
     private static final int GETPARKINFO_SUCCESS = 2;
+    private String parkingLotUid[] = new String[10];
+    private double parkingLotLatitude[] = new double[10];
+    private double parkingLotLongitude[] = new double[10];
+    private double endLatitude, endLongitude;
     private double totalSpaces2, totalAvailable2, nightPrice2, dayPrice2;
     private double totalSpaces4, totalAvailable4, nightPrice4, dayPrice4;
     private double totalSpaces5, totalAvailable5, nightPrice5, dayPrice5;
@@ -61,6 +64,14 @@ public class BestChoiceActivity extends AppCompatActivity {
         distance_rate = Integer.parseInt(bundle.getString("distance_rate"));
         parkFee_rate = Integer.parseInt(bundle.getString("parkFee_rate"));
         lightNum_rate = Integer.parseInt(bundle.getString("lightNum_rate"));
+        endLatitude = bundle.getDouble("endLatitude");
+        endLongitude = bundle.getDouble("endLongitude");
+        //Intent get
+        Intent intent = this.getIntent();
+        parkingLotUid = intent.getStringArrayExtra("parkingLotUid");
+        parkingLotLatitude = intent.getDoubleArrayExtra("parkingLotLatitude");
+        parkingLotLongitude = intent.getDoubleArrayExtra("parkingLotLongitude");
+
         System.out.println("parkingFreeRate_rate : " + parkingFreeRate_rate +
                 "distance_rate : " + distance_rate + "parkFee_rate : " + parkFee_rate
                 + "lightNum_rate : " + lightNum_rate);
@@ -75,9 +86,9 @@ public class BestChoiceActivity extends AppCompatActivity {
             public void run() {
                 try {
                     //通过uid获取所有的日间夜间停车费
-                    getParkInfo2 = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkUid2);
-                    getParkInfo4 = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkUId4);
-                    getParkInfo5 = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkUId5);
+                    getParkInfo2 = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid[0]);
+                    getParkInfo4 = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid[1]);
+                    getParkInfo5 = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid[2]);
                     Message message = new Message();
                     message.what = GETPARKINFO_SUCCESS;
                     handler.sendMessage(message);
@@ -91,14 +102,22 @@ public class BestChoiceActivity extends AppCompatActivity {
 
     //设定导航的起点和终点
     @NonNull
-    private RoutLinePlanots setPlanningRoad(int index) {
-        routLinePlanots = new RoutLinePlanots();
-        currClickPoi = poiOverlay.getPoiResult().getAllPoi().get(index);//TODO
+    private RoutLinePlanots setBetweenStartToEnd(double latitude, double longitude) {
+        routLinePlanotsBetweenStartToEnd = new RoutLinePlanots();
         PlanNode startNode = PlanNode.withLocation(new LatLng(MyApp.getCurrBDLocation().getLatitude(), MyApp.getCurrBDLocation().getLongitude()));
-        PlanNode targetNode = PlanNode.withLocation(new LatLng(currClickPoi.location.latitude, currClickPoi.location.longitude));//TODO
-        routLinePlanots.setStartPlanNode(startNode);
-        routLinePlanots.setTargetPlanNode(targetNode);
-        return routLinePlanots;
+        PlanNode targetNode = PlanNode.withLocation(new LatLng(latitude, longitude));//TODO
+        routLinePlanotsBetweenStartToEnd.setStartPlanNode(startNode);
+        routLinePlanotsBetweenStartToEnd.setTargetPlanNode(targetNode);
+        return routLinePlanotsBetweenStartToEnd;
+    }
+
+    private RoutLinePlanots setBetweenParkingLotToEnd(double latitude, double longitude) {
+        routLinePlanotsBetweenParkingLotToEnd = new RoutLinePlanots();
+        PlanNode startNode = PlanNode.withLocation(new LatLng(MyApp.getCurrBDLocation().getLatitude(), MyApp.getCurrBDLocation().getLongitude()));
+        PlanNode targetNode = PlanNode.withLocation(new LatLng(latitude, longitude));//TODO
+        routLinePlanotsBetweenParkingLotToEnd.setStartPlanNode(startNode);
+        routLinePlanotsBetweenParkingLotToEnd.setTargetPlanNode(targetNode);
+        return routLinePlanotsBetweenParkingLotToEnd;
     }
 
     private void routePlanning() {
@@ -157,8 +176,8 @@ public class BestChoiceActivity extends AppCompatActivity {
             public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
             }
         });
-        routePlanSearch.drivingSearch((new DrivingRoutePlanOption())
-                .from(routLinePlanots.getStartPlanNode()).to(routLinePlanots.getTargetPlanNode()));
+//        routePlanSearch.drivingSearch((new DrivingRoutePlanOption())
+//                .from(routLinePlanots.getStartPlanNode()).to(routLinePlanots.getTargetPlanNode()));
     }
 
     private Handler handler = new Handler() {
@@ -203,10 +222,11 @@ public class BestChoiceActivity extends AppCompatActivity {
 
                     System.out.println("\n\n\nnightTime : " + nightTime + "dayTime : " + dayTime +
                             "\nparkFee2 : " + parkFee2 + "\nparkFee4 : " + parkFee4 + "\nparkFee5 : " + parkFee5);
+
                     System.out.println("\n\n\nparkingFreeRate2 : " + parkingFreeRate2 + "\nparkingFreeRate4 : " +
-                            parkingFreeRate4 + "\nparkingFrees5 : " + parkingFreeRate5);
-                    System.out.println("\n\n\naverageParkingFreeRate : " + averageParkingFreeRate + "\naverageParkFee : "
-                            + averageParkFee + "\naverageDistance : " + averageDistance + "\naverageLightNum : " + averageLightNum);
+                            parkingFreeRate4 + "\nparkingFreeRate5 : " + parkingFreeRate5);
+//                    System.out.println("\n\n\naverageParkingFreeRate : " + averageParkingFreeRate + "\naverageParkFee : "
+//                            + averageParkFee + "\naverageDistance : " + averageDistance + "\naverageLightNum : " + averageLightNum);
                     Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
                     break;
                 default:

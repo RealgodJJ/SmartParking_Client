@@ -29,6 +29,7 @@ import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.baidu.MapStateView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnGetPoiSearchResultListener, OnGetGeoCoderResultListener, View.OnClickListener {
@@ -55,8 +56,10 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 //    private BDLocation currBDLocation;
     private PoiInfo currClickPoi[] = new PoiInfo[10];
     private String parkingLotUid[] = new String[10];
+    private double parkingLotLatitude[] = new double[10];
+    private double parkingLotLongitude[] = new double[10];
     private int i = 0;
-    //    private PoiInfo currClickPoi1, currClickPoi2, currClickPoi3;
+
     private int currClickId;
     private RoutLinePlanots routLinePlanots;
     private PopupWindow optionBelow;
@@ -66,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private Menu thisMenu;
     private boolean isFirstLocation = true;
 
-    private String s_destination;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +89,12 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
                 Bundle bundle = new Bundle();
+                //TODO
+                bundle.putDouble("endLatitude", desLocation.latitude);
+                bundle.putDouble("endLongitude", desLocation.longitude);
                 bundle.putSerializable("parkingLotUid", parkingLotUid);
+                bundle.putSerializable("parkingLotLatitude", parkingLotLatitude);
+                bundle.putSerializable("parkingLotLongitude", parkingLotLongitude);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -417,21 +424,25 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         @Override
         public boolean onPoiClick(int index) {
             super.onPoiClick(index);
-            MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index)); //TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! id----->uid
+            MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index));
             currClickId = index + 1;
             if (MyApp.isBestChoice()) {
                 currClickPoi[i] = getPoiResult().getAllPoi().get(index);
                 parkingLotUid[i] = currClickPoi[i].uid;
+                parkingLotLatitude[i] = currClickPoi[i].location.latitude;
+                parkingLotLongitude[i] = currClickPoi[i].location.longitude;
+
+                //TODO
                 //不录入重复的parkingLotUid
 //                if (i >= 1) {
 
 //                } else {
-                    System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
-                    i++;
+                System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
+                System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
+                System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
+                i++;
 //                }
-            }
-
-            else if (MyApp.isLogin()) {
+            } else if (MyApp.isLogin()) {
                 showTabBelow();
             } else {
                 Toast.makeText(MainActivity.this, R.string.sys_no_login, Toast.LENGTH_SHORT).show();

@@ -17,7 +17,7 @@ public class MyApp {
 
     private static boolean isIntent = false;
 
-    private static String ipAddress = "http://10.25.40.125:8085";
+    private static String ipAddress = "http://172.26.27.202:8085";
 
     private static String userName = "";
 
