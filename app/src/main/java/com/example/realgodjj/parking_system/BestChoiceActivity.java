@@ -28,12 +28,8 @@ public class BestChoiceActivity extends AppCompatActivity {
 
     private int parkingFreeRate_rate, distance_rate, parkFee_rate, lightNum_rate;
     private double nightTime, dayTime;
-    private static final String parkUid2 = "eb485de9e77e8e7451e5c556";
-    private static final String parkUId4 = "59bcc8c15c2ae2edc03644ae";
-    private static final String parkUId5 = "529cb484e57dffd0f6eafcad";
     private String getParkInfo2, getParkInfo4, getParkInfo5;
 
-    private RoutLinePlanots routLinePlanotsBetweenStartToEnd, routLinePlanotsBetweenParkingLotToEnd;
     private RoutePlanSearch routePlanSearch;
     private int duration;
     private double distance;
@@ -51,7 +47,7 @@ public class BestChoiceActivity extends AppCompatActivity {
     private double parkingFreeRate2, parkFee2, distance2;
     private double parkingFreeRate4, parkFee4, distance4;
     private double parkingFreeRate5, parkFee5, distance5;
-    private int lightNum2, lightNum4, lightNum5;
+//    private int lightNum2, lightNum4, lightNum5;
     private double averageParkingFreeRate, averageParkFee, averageDistance, averageLightNum;
 
     @Override
@@ -78,8 +74,6 @@ public class BestChoiceActivity extends AppCompatActivity {
         nightTime = bundle.getDouble("nightTime");
         dayTime = bundle.getDouble("dayTime");
 
-//        routLinePlanots = setPlanningRoad();//TODO
-
         Thread post_thread;
         post_thread = new Thread(new Runnable() {
             @Override
@@ -98,86 +92,6 @@ public class BestChoiceActivity extends AppCompatActivity {
             }
         });
         post_thread.start();
-    }
-
-    //设定导航的起点和终点
-    @NonNull
-    private RoutLinePlanots setBetweenStartToEnd(double latitude, double longitude) {
-        routLinePlanotsBetweenStartToEnd = new RoutLinePlanots();
-        PlanNode startNode = PlanNode.withLocation(new LatLng(MyApp.getCurrBDLocation().getLatitude(), MyApp.getCurrBDLocation().getLongitude()));
-        PlanNode targetNode = PlanNode.withLocation(new LatLng(latitude, longitude));//TODO
-        routLinePlanotsBetweenStartToEnd.setStartPlanNode(startNode);
-        routLinePlanotsBetweenStartToEnd.setTargetPlanNode(targetNode);
-        return routLinePlanotsBetweenStartToEnd;
-    }
-
-    private RoutLinePlanots setBetweenParkingLotToEnd(double latitude, double longitude) {
-        routLinePlanotsBetweenParkingLotToEnd = new RoutLinePlanots();
-        PlanNode startNode = PlanNode.withLocation(new LatLng(MyApp.getCurrBDLocation().getLatitude(), MyApp.getCurrBDLocation().getLongitude()));
-        PlanNode targetNode = PlanNode.withLocation(new LatLng(latitude, longitude));//TODO
-        routLinePlanotsBetweenParkingLotToEnd.setStartPlanNode(startNode);
-        routLinePlanotsBetweenParkingLotToEnd.setTargetPlanNode(targetNode);
-        return routLinePlanotsBetweenParkingLotToEnd;
-    }
-
-    private void routePlanning() {
-
-        routePlanSearch = RoutePlanSearch.newInstance();
-        routePlanSearch.setOnGetRoutePlanResultListener(new OnGetRoutePlanResultListener() {
-
-            @Override
-            public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
-
-                //计算路线的距离
-                if (drivingRouteResult.getRouteLines() == null) {
-                    Toast.makeText(BestChoiceActivity.this, "算路失败", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                distance = drivingRouteResult.getRouteLines().get(0).getDistance();
-                if ((int) distance / 1000 == 0) {
-                    Toast.makeText(BestChoiceActivity.this, "全程距离是:" + distance + "米", Toast.LENGTH_SHORT).show();
-                } else {
-                    distance = distance / 1000;
-                    BigDecimal b = new BigDecimal(distance);
-                    double formatDistance = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    Toast.makeText(BestChoiceActivity.this, "全程距离是:" + formatDistance + "千米", Toast.LENGTH_SHORT).show();
-                }
-
-                duration = drivingRouteResult.getRouteLines().get(0).getDuration();
-                if (duration / 3600 == 0) {
-                    reserveHour = 0;
-                    reserveMinute = duration / 60;
-                    Toast.makeText(BestChoiceActivity.this, "大约需要：" + reserveMinute + "分钟", Toast.LENGTH_SHORT).show();
-                } else {
-                    reserveHour = duration / 3600;
-                    reserveMinute = (duration % 3600) / 60;
-                    Toast.makeText(BestChoiceActivity.this, "大约需要：" + reserveHour + "小时" + reserveMinute + "分钟", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
-            }
-
-            @Override
-            public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
-            }
-
-            @Override
-            public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
-            }
-
-            @Override
-            public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
-            }
-
-            @Override
-            public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
-            }
-        });
-//        routePlanSearch.drivingSearch((new DrivingRoutePlanOption())
-//                .from(routLinePlanots.getStartPlanNode()).to(routLinePlanots.getTargetPlanNode()));
     }
 
     private Handler handler = new Handler() {
@@ -225,8 +139,7 @@ public class BestChoiceActivity extends AppCompatActivity {
 
                     System.out.println("\n\n\nparkingFreeRate2 : " + parkingFreeRate2 + "\nparkingFreeRate4 : " +
                             parkingFreeRate4 + "\nparkingFreeRate5 : " + parkingFreeRate5);
-//                    System.out.println("\n\n\naverageParkingFreeRate : " + averageParkingFreeRate + "\naverageParkFee : "
-//                            + averageParkFee + "\naverageDistance : " + averageDistance + "\naverageLightNum : " + averageLightNum);
+
                     Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
                     break;
                 default:
