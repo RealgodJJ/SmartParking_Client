@@ -54,10 +54,11 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     //获取点击停车场的信息
 //    private BDLocation currBDLocation;
-    private PoiInfo currClickPoi[] = new PoiInfo[10];
-    private String parkingLotUid[] = new String[10];
-    private double parkingLotLatitude[] = new double[10];
-    private double parkingLotLongitude[] = new double[10];
+    private PoiInfo currClickPoi[] = new PoiInfo[3];
+    private int parkingLotId[] = new int[3];
+    private String parkingLotUid[] = new String[3];
+    private double parkingLotLatitude[] = new double[3];
+    private double parkingLotLongitude[] = new double[3];
     private int i = 0;
 
     private int currClickId;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 bundle.putDouble("endLatitude", desLocation.latitude);
                 bundle.putDouble("endLongitude", desLocation.longitude);
                 bundle.putSerializable("parkingLotUid", parkingLotUid);
+                bundle.putSerializable("parkingLotId", parkingLotId);
                 bundle.putSerializable("parkingLotLatitude", parkingLotLatitude);
                 bundle.putSerializable("parkingLotLongitude", parkingLotLongitude);
                 intent.putExtras(bundle);
@@ -427,20 +429,27 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             MyApp.setCurrClickPoi(getPoiResult().getAllPoi().get(index));
             currClickId = index + 1;
             if (MyApp.isBestChoice()) {
-                currClickPoi[i] = getPoiResult().getAllPoi().get(index);
-                parkingLotUid[i] = currClickPoi[i].uid;
-                parkingLotLatitude[i] = currClickPoi[i].location.latitude;
-                parkingLotLongitude[i] = currClickPoi[i].location.longitude;
-
                 //TODO
                 //不录入重复的parkingLotUid
 //                if (i >= 1) {
 
 //                } else {
-                System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
-                System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
-                System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
-                i++;
+                if(i == 3) {
+                    Toast.makeText(MainActivity.this, "您已选择了三个停车场!", Toast.LENGTH_SHORT).show();
+                } else {
+                    currClickPoi[i] = getPoiResult().getAllPoi().get(index);
+                    parkingLotUid[i] = currClickPoi[i].uid;
+                    parkingLotId[i] = index + 1;
+                    parkingLotLatitude[i] = currClickPoi[i].location.latitude;
+                    parkingLotLongitude[i] = currClickPoi[i].location.longitude;
+
+                    System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
+                    System.out.println("parkingLotId(" + (i + 1) + ") : " + parkingLotId[i]);
+                    System.out.println("parkingLotLatitude(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
+                    System.out.println("parkingLotLongitude(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
+                    Toast.makeText(MainActivity.this, "您已选择" + (index + 1) + "号停车场!", Toast.LENGTH_SHORT).show();
+                    i++;
+                }
 //                }
             } else if (MyApp.isLogin()) {
                 showTabBelow();
@@ -488,10 +497,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 parkInfo();
                 break;
             case R.id.route_planning_table_below_best_choice_button:
-                pleaseUserChoose.setVisibility(View.VISIBLE);
-                sureParkingLots.setVisibility(View.VISIBLE);
-                MyApp.setBestChoice(true);
-//                bestChoice();
+                bestChoice();
                 break;
             case R.id.route_planning_table_below_reserve_button:
                 reserveSpace();
@@ -537,9 +543,9 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     //最佳预估
     private void bestChoice() {
 //        MyApp.setBestChoice(true);
-        if (i == 10) {
-
-        }
+        pleaseUserChoose.setVisibility(View.VISIBLE);
+        sureParkingLots.setVisibility(View.VISIBLE);
+        MyApp.setBestChoice(true);
     }
 
     //停车场的预订

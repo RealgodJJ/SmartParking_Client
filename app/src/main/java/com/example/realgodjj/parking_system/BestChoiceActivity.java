@@ -3,76 +3,85 @@ package com.example.realgodjj.parking_system;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.route.*;
-import com.example.realgodjj.parking_system.baidu.DrivingRouteOverlay;
-import com.example.realgodjj.parking_system.baidu.PoiOverlay;
-import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.client.ParkInfoClient;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class BestChoiceActivity extends AppCompatActivity {
 
-    private int parkingFreeRate_rate, distance_rate, parkFee_rate, lightNum_rate;
+    private EditText e_parkingLotId, e_parkingFreeRate, e_distance, e_parkFee;
+
+    private int parkingFreeRate_rate, distance_rate, parkFee_rate;
     private double nightTime, dayTime;
     private String getParkInfo2, getParkInfo4, getParkInfo5;
-
-    private RoutePlanSearch routePlanSearch;
-    private int duration;
-    private double distance;
-    private int reserveHour, reserveMinute;
-
     private static final int GETPARKINFO_ERROR = 1;
     private static final int GETPARKINFO_SUCCESS = 2;
-    private String parkingLotUid[] = new String[10];
-    private double parkingLotLatitude[] = new double[10];
-    private double parkingLotLongitude[] = new double[10];
+    private String parkingLotUid[] = new String[3];
+    private int parkingLotId[] = new int[3];
+    private double parkingLotLatitude[] = new double[3];
+    private double parkingLotLongitude[] = new double[3];
     private double endLatitude, endLongitude;
+    private LatLng latLng2, latLng4, latLng5, latLngEnd;
     private double totalSpaces2, totalAvailable2, nightPrice2, dayPrice2;
     private double totalSpaces4, totalAvailable4, nightPrice4, dayPrice4;
     private double totalSpaces5, totalAvailable5, nightPrice5, dayPrice5;
     private double parkingFreeRate2, parkFee2, distance2;
     private double parkingFreeRate4, parkFee4, distance4;
     private double parkingFreeRate5, parkFee5, distance5;
-//    private int lightNum2, lightNum4, lightNum5;
-    private double averageParkingFreeRate, averageParkFee, averageDistance, averageLightNum;
+    private double averageParkingFreeRate, averageParkFee, averageDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_best_choice);
+        e_parkingLotId = (EditText) findViewById(R.id.best_choice_parking_name_edit_text);
+        e_parkingFreeRate = (EditText) findViewById(R.id.best_choice_parking_free_rate_edit_text);
+        e_distance = (EditText) findViewById(R.id.best_choice_distance_edit_text);
+
         //Intent get 停车的夜间和日间时间
         Bundle bundle = this.getIntent().getExtras();
         parkingFreeRate_rate = Integer.parseInt(bundle.getString("parkingFreeRate_rate"));
         distance_rate = Integer.parseInt(bundle.getString("distance_rate"));
         parkFee_rate = Integer.parseInt(bundle.getString("parkFee_rate"));
-        lightNum_rate = Integer.parseInt(bundle.getString("lightNum_rate"));
         endLatitude = bundle.getDouble("endLatitude");
         endLongitude = bundle.getDouble("endLongitude");
-        //Intent get
+        //Intent get 数组(Uid, Latitude, Longitude)
         Intent intent = this.getIntent();
         parkingLotUid = intent.getStringArrayExtra("parkingLotUid");
+        parkingLotId = intent.getIntArrayExtra("parkingLotId");
         parkingLotLatitude = intent.getDoubleArrayExtra("parkingLotLatitude");
         parkingLotLongitude = intent.getDoubleArrayExtra("parkingLotLongitude");
-
-        System.out.println("parkingFreeRate_rate : " + parkingFreeRate_rate +
-                "distance_rate : " + distance_rate + "parkFee_rate : " + parkFee_rate
-                + "lightNum_rate : " + lightNum_rate);
         nightTime = bundle.getDouble("nightTime");
         dayTime = bundle.getDouble("dayTime");
+
+        System.out.println("parkingFreeRate_rate : " + parkingFreeRate_rate +
+                "distance_rate : " + distance_rate + "parkFee_rate : " + parkFee_rate);
+
+        System.out.println("\nparkingLotUid : " + parkingLotUid[0] + "::::" + parkingLotUid[1] + "::::" + parkingLotUid[2]);
+
+        System.out.println("\nparkingLotId : " + parkingLotId[0] + "::::" + parkingLotId[1] + "::::" + parkingLotId[2]);
+
+        System.out.println("\nparkingLotLatitude : " + parkingLotLatitude[0] + "::::" + parkingLotLatitude[1] + "::::" + parkingLotLatitude[2]);
+
+        System.out.println("\nparkingLotLongitude : " + parkingLotLongitude[0] + "::::" + parkingLotLongitude[1] + "::::" + parkingLotLongitude[2]);
+
+
+        latLng2 = new LatLng(parkingLotLatitude[0], parkingLotLongitude[0]);
+        latLng4 = new LatLng(parkingLotLatitude[1], parkingLotLongitude[1]);
+        latLng5 = new LatLng(parkingLotLatitude[2], parkingLotLongitude[2]);
+        latLngEnd = new LatLng(endLatitude, endLongitude);
+
+        distance2 = DistanceUtil.getDistance(latLng2, latLngEnd);
+        distance4 = DistanceUtil.getDistance(latLng4, latLngEnd);
+        distance5 = DistanceUtil.getDistance(latLng5, latLngEnd);
+
+        System.out.println("\ndistance : " + distance2 + "::::" + distance4 + "::::" + distance5);
 
         Thread post_thread;
         post_thread = new Thread(new Runnable() {
@@ -133,12 +142,15 @@ public class BestChoiceActivity extends AppCompatActivity {
 
                     averageParkingFreeRate = (parkingFreeRate2 + parkingFreeRate4 + parkingFreeRate5) / 3;
                     averageParkFee = (parkFee2 + parkFee4 + parkFee5) / 3;
-
-                    System.out.println("\n\n\nnightTime : " + nightTime + "dayTime : " + dayTime +
-                            "\nparkFee2 : " + parkFee2 + "\nparkFee4 : " + parkFee4 + "\nparkFee5 : " + parkFee5);
+                    averageDistance = (distance2 + distance4 +distance5) /3;
 
                     System.out.println("\n\n\nparkingFreeRate2 : " + parkingFreeRate2 + "\nparkingFreeRate4 : " +
                             parkingFreeRate4 + "\nparkingFreeRate5 : " + parkingFreeRate5);
+
+                    System.out.println("\n\n\nnightTime : " + nightTime + "\ndayTime : " + dayTime +
+                            "\nparkFee2 : " + parkFee2 + "\nparkFee4 : " + parkFee4 + "\nparkFee5 : " + parkFee5);
+
+                    System.out.println("\n\n\ndistance2 : " + distance2 + "\ndistance4 : " + distance4 + "\ndistance5 : " + distance5);
 
                     Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
                     break;

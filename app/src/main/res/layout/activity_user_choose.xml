@@ -49,7 +49,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/user_choose_choose_text_view"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
@@ -57,7 +57,7 @@
                 android:id="@+id/user_choose_parking_free_rate_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:text="@string/parking_free_rate"
                 android:gravity="center"
                 android:textSize="17sp"
@@ -68,7 +68,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="6dip"
+                android:layout_marginLeft="8dip"
                 android:layout_toRightOf="@id/user_choose_parking_free_rate_text_view"
                 android:gravity="center"
                 android:textColor="#ff0d00"
@@ -80,7 +80,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/user_choose_parking_free_rate_relative_layout"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
@@ -88,7 +88,7 @@
                 android:id="@+id/user_choose_distance_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:text="@string/distance"
                 android:gravity="center"
                 android:textColor="#00bfff"
@@ -99,7 +99,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="6dip"
+                android:layout_marginLeft="8dip"
                 android:layout_toRightOf="@id/user_choose_distance_text_view"
                 android:textColor="#ff0d00"
                 android:gravity="center"
@@ -111,7 +111,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/user_choose_distance_relative_layout"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
@@ -119,7 +119,7 @@
                 android:id="@+id/user_choose_parkFee_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:text="@string/parkFee"
                 android:gravity="center"
                 android:textColor="#00bfff"
@@ -130,50 +130,20 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="6dip"
+                android:layout_marginLeft="8dip"
                 android:layout_toRightOf="@id/user_choose_parkFee_text_view"
                 android:textColor="#ff0d00"
                 android:gravity="center"
                 android:inputType="number"/>
     </RelativeLayout>
 
-    <RelativeLayout
-            android:id="@+id/user_choose_lightNum_relative_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/user_choose_parkFee_relative_layout"
-            android:layout_marginTop="6dp"
-            android:clickable="true"
-            android:gravity="center_vertical">
-
-        <TextView
-                android:id="@+id/user_choose_lightNum_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:text="@string/lightNum"
-                android:gravity="center"
-                android:textColor="#00bfff"
-                android:textSize="17sp"/>
-
-        <EditText
-                android:id="@+id/user_choose_lightNum_edit_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="6dip"
-                android:layout_toRightOf="@id/user_choose_lightNum_text_view"
-                android:textColor="#ff0d00"
-                android:gravity="center"
-                android:inputType="number"/>
-    </RelativeLayout>
 
     <RelativeLayout
             android:id="@+id/user_choose_input_time_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_choose_lightNum_relative_layout"
-            android:layout_marginTop="6dp">
+            android:layout_below="@id/user_choose_parkFee_relative_layout"
+            android:layout_marginTop="14dp">
 
         <TextView
                 android:id="@+id/user_choose_input_time_text_view"
@@ -190,7 +160,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/user_choose_input_time_relative_layout"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:clickable="true"
             android:gravity="center_vertical">
 
@@ -198,7 +168,7 @@
                 android:id="@+id/user_choose_start_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:text="@string/start_time"
                 android:textColor="#000"
                 android:textSize="17sp"/>
@@ -217,7 +187,7 @@
                 android:id="@+id/user_choose_start_time_hour_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:layout_marginLeft="2dip"
                 android:layout_toRightOf="@id/user_choose_start_time_hour_edit_text"
                 android:text="@string/reserve_hour"
@@ -238,7 +208,7 @@
                 android:id="@+id/user_choose_start_time_minute_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:layout_marginLeft="2dip"
                 android:layout_toRightOf="@id/user_choose_start_time_minute_edit_text"
                 android:text="@string/reserve_minute"
@@ -252,14 +222,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/user_choose_start_time_relative_layout"
             android:clickable="true"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:gravity="center_vertical">
 
         <TextView
                 android:id="@+id/user_choose_end_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:text="@string/end_time"
                 android:textColor="#000"
                 android:textSize="17sp"/>
@@ -278,7 +248,7 @@
                 android:id="@+id/user_choose_end_time_hour_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:layout_marginLeft="2dip"
                 android:layout_toRightOf="@id/user_choose_end_time_hour_edit_text"
                 android:text="@string/reserve_hour"
@@ -299,7 +269,7 @@
                 android:id="@+id/user_choose_end_time_minute_text_view"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:layout_marginLeft="2dip"
                 android:layout_toRightOf="@id/user_choose_end_time_minute_edit_text"
                 android:text="@string/reserve_minute"
@@ -314,14 +284,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/user_choose_end_time_relative_layout"
             android:clickable="true"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:gravity="center_vertical">
 
         <TextView
                 android:id="@+id/user_choose_total_time_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="8dp"
                 android:text="@string/total_time"
                 android:textColor="#000"
                 android:textSize="17sp"/>
@@ -345,6 +315,6 @@
             android:background="#00ff37"
             android:textSize="25sp"
             android:layout_below="@+id/user_choose_total_time_relative_layout"
-            android:layout_marginTop="6dp" />
+            android:layout_marginTop="14dp" />
 
 </RelativeLayout>

@@ -20,16 +20,17 @@ import java.util.Calendar;
 public class UserChooseActivity extends AppCompatActivity {
 
     private TextView userName;
-    private EditText e_parkingFreeRate, e_distance, e_parkFee, e_lightNum;
+    private EditText e_parkingFreeRate, e_distance, e_parkFee;
     private EditText e_startTime_hour, e_startTime_minute, e_endTime_hour, e_endTime_minute, e_total_time;
     private Button bestEstimate;
 
-    private String parkingLotUid[] = new String[10];
-    private double parkingLotLatitude[] = new double[10];
-    private double parkingLotLongitude[] = new double[10];
+    private String parkingLotUid[] = new String[3];
+    private int parkingLotId[] = new int[3];
+    private double parkingLotLatitude[] = new double[3];
+    private double parkingLotLongitude[] = new double[3];
     private double endLatitude, endLongitude;
 
-    private String s_parkingFreeRate, s_distance, s_parkFee, s_lightNum;
+    private String s_parkingFreeRate, s_distance, s_parkFee;
     private double totalHour = 0, totalMinute = 0;
     private double dayTime, nightTime;//以小时记录的日间时间和夜间时间
     private int currentHour, currentMinute;
@@ -43,7 +44,6 @@ public class UserChooseActivity extends AppCompatActivity {
         e_parkingFreeRate = (EditText) findViewById(R.id.user_choose_parking_free_rate_edit_text);
         e_distance = (EditText) findViewById(R.id.user_choose_distance_edit_text);
         e_parkFee = (EditText) findViewById(R.id.user_choose_parkFee_edit_text);
-        e_lightNum = (EditText) findViewById(R.id.user_choose_lightNum_edit_text);
         e_startTime_hour = (EditText) findViewById(R.id.user_choose_start_time_hour_edit_text);
         e_startTime_minute = (EditText) findViewById(R.id.user_choose_start_time_minute_edit_text);
         e_endTime_hour = (EditText) findViewById(R.id.user_choose_end_time_hour_edit_text);
@@ -65,9 +65,11 @@ public class UserChooseActivity extends AppCompatActivity {
             endLatitude = bundle.getDouble("endLatitude");
             endLongitude = bundle.getDouble("endLongitude");
             parkingLotUid = intent.getStringArrayExtra("parkingLotUid");
+            parkingLotId = intent.getIntArrayExtra("parkingLotId");
             parkingLotLatitude = intent.getDoubleArrayExtra("parkingLotLatitude");
             parkingLotLongitude = intent.getDoubleArrayExtra("parkingLotLongitude");
             System.out.println(parkingLotUid[0] + "\n" + parkingLotUid[1] + "\n" + parkingLotUid[2]);
+            System.out.println(parkingLotId[0] + "\n" + parkingLotId[1] + "\n" + parkingLotId[2]);
             System.out.println(parkingLotLatitude[0] + "\n" + parkingLotLatitude[1] + "\n" + parkingLotLatitude[2]);
             System.out.println(parkingLotLongitude[0] + "\n" + parkingLotLongitude[1] + "\n" + parkingLotLongitude[2]);
         }
@@ -78,26 +80,30 @@ public class UserChooseActivity extends AppCompatActivity {
                 s_parkingFreeRate = e_parkingFreeRate.getText().toString();
                 s_distance = e_distance.getText().toString();
                 s_parkFee = e_parkFee.getText().toString();
-                s_lightNum = e_lightNum.getText().toString();
                 if (TextUtils.isEmpty(s_parkingFreeRate) || TextUtils.isEmpty(s_distance) || TextUtils.isEmpty(s_parkFee)
-                        || TextUtils.isEmpty(s_lightNum) || TextUtils.isEmpty(e_startTime_hour.getText().toString())
-                        || TextUtils.isEmpty(e_startTime_minute.getText().toString()) || TextUtils.isEmpty(e_endTime_hour.getText().toString())
-                        || TextUtils.isEmpty(e_endTime_minute.getText().toString())) {
+                        || TextUtils.isEmpty(e_startTime_hour.getText().toString()) || TextUtils.isEmpty(e_startTime_minute.getText().toString())
+                        || TextUtils.isEmpty(e_endTime_hour.getText().toString()) || TextUtils.isEmpty(e_endTime_minute.getText().toString())) {
                     Toast.makeText(UserChooseActivity.this, R.string.info_empty, Toast.LENGTH_SHORT).show();
-                } else if(Integer.parseInt(s_parkingFreeRate) + Integer.parseInt(s_distance) + Integer.parseInt(s_parkFee) + Integer.parseInt(s_lightNum) != 10) {
-                    Toast.makeText(UserChooseActivity.this, R.string.input_number_error, Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(Integer.parseInt(s_parkingFreeRate) == Integer.parseInt(s_distance) || Integer.parseInt(s_distance) == Integer.parseInt(s_parkFee)
+                        || Integer.parseInt(s_parkingFreeRate) == Integer.parseInt(s_parkFee)) {
+                    Toast.makeText(UserChooseActivity.this, R.string.input_number_repeat, Toast.LENGTH_SHORT).show();
+                } else if (Integer.parseInt(s_parkingFreeRate) < 1 || Integer.parseInt(s_parkingFreeRate) > 3 ||
+                        Integer.parseInt(s_distance) < 1 || Integer.parseInt(s_distance) > 3 ||
+                        Integer.parseInt(s_parkFee) < 1 || Integer.parseInt(s_parkFee) > 3) {
+
+                }
+                else {
                     Intent intent = new Intent(UserChooseActivity.this, BestChoiceActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("parkingFreeRate_rate", s_parkingFreeRate);
                     bundle.putString("distance_rate", s_distance);
                     bundle.putString("parkFee_rate", s_parkFee);
-                    bundle.putString("lightNum_rate", s_lightNum);
                     bundle.putDouble("nightTime", nightTime);
                     bundle.putDouble("dayTime", dayTime);
                     bundle.putDouble("endLatitude", endLatitude);
                     bundle.putDouble("endLongitude", endLongitude);
                     bundle.putSerializable("parkingLotUid", parkingLotUid);
+                    bundle.putSerializable("parkingLotId", parkingLotId);
                     bundle.putSerializable("parkingLotLatitude", parkingLotLatitude);
                     bundle.putSerializable("parkingLotLongitude", parkingLotLongitude);
                     intent.putExtras(bundle);
@@ -193,34 +199,7 @@ public class UserChooseActivity extends AppCompatActivity {
             }
         });
 
-        e_lightNum.addTextChangedListener(new TextWatcher() {
-            private CharSequence temp;//监听前的文本
-            private int editStart;//光标开始位置
-            private int editEnd;//光标结束位置
-            private final int charMaxNum = 1;
 
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                temp = charSequence;
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                editStart = e_lightNum.getSelectionStart();
-                editEnd = e_lightNum.getSelectionEnd();
-                if (temp.length() > charMaxNum) {
-                    Toast.makeText(getApplicationContext(), "你输入的字数已经超过了限制！", Toast.LENGTH_LONG).show();
-                    editable.delete(editStart - 1, editEnd);
-                    int tempSelection = editStart;
-                    e_startTime_hour.setText(temp);
-                    e_startTime_hour.setSelection(tempSelection);
-                }
-            }
-        });
 
         //开始时间小时监听事件
         e_startTime_hour.addTextChangedListener(new TextWatcher() {
