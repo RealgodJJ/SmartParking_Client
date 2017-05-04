@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private GeoCoder search = null; // 搜索模块，也可去掉地图模块独立使用
     private PoiSearch poiSearch = null;// 搜索模块，用于搜索停车场
 
-    private TextView pleaseUserChoose;
+    private TextView pleaseUserChoose, point_parkingLot;
     private MapStateView location, trafficCondition, searchDestination, searchParkingLot;
     private Button sureParkingLots;
     private LocationClient mLocationClient = null;
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         searchParkingLot = (MapStateView) findViewById(R.id.search_parkingLot_button);
         pleaseUserChoose = (TextView) findViewById(R.id.please_user_choose);
         sureParkingLots = (Button) findViewById(R.id.sure_parkingLot_button);
+        point_parkingLot = (TextView) findViewById(R.id.point_parkingLot_text_view);
 
         baiduMap = baiduMapView.getMap();
         //Open real time traffic
@@ -446,7 +447,14 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                     System.out.println("parkingLotId(" + (i + 1) + ") : " + parkingLotId[i]);
                     System.out.println("parkingLotLatitude(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
                     System.out.println("parkingLotLongitude(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
-                    Toast.makeText(MainActivity.this, "您已选择" + (index + 1) + "号停车场!", Toast.LENGTH_SHORT).show();
+                    StringBuffer str1 = new StringBuffer(String.valueOf(index + 1));
+                    //TODO
+                    if(i != 0) {
+                        StringBuffer str2 = new StringBuffer(String.valueOf(index + 1));
+                        str1.append(str2);
+                    }
+                    point_parkingLot.setText("您已选择了" + str1 + "号停车场!");
+//                    Toast.makeText(MainActivity.this, "您已选择" + (index + 1) + "号停车场!", Toast.LENGTH_SHORT).show();
                     i++;
                 }
 //                }
@@ -544,6 +552,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 //        MyApp.setBestChoice(true);
         pleaseUserChoose.setVisibility(View.VISIBLE);
         sureParkingLots.setVisibility(View.VISIBLE);
+        point_parkingLot.setVisibility(View.VISIBLE);
         MyApp.setBestChoice(true);
     }
 
@@ -695,6 +704,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             if (MyApp.isBestChoice()) {
                 pleaseUserChoose.setVisibility(View.INVISIBLE);
                 sureParkingLots.setVisibility(View.INVISIBLE);
+                point_parkingLot.setVisibility(View.INVISIBLE);
                 MyApp.setBestChoice(false);
             } else {
                 exit();

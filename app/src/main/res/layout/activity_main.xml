@@ -95,4 +95,25 @@
             android:textColor="@color/color_white"
             android:visibility="gone"/>
 
+    <RelativeLayout
+            android:id="@+id/point_parkingLot_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_above="@id/sure_parkingLot_button"
+            android:layout_marginBottom="14dp">
+
+        <TextView
+                android:id="@+id/point_parkingLot_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:textSize="20sp"
+                android:textColor="#ff9900"
+                android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
+
 </RelativeLayout>
