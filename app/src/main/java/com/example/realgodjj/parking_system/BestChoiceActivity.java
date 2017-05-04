@@ -11,13 +11,15 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.client.ParkInfoClient;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class BestChoiceActivity extends AppCompatActivity {
 
     private EditText e_parkingLotId, e_parkingFreeRate, e_distance, e_parkFee;
-
     private int parkingFreeRate_rate, distance_rate, parkFee_rate;
+    private double parkingOccupyRatePercentage, distancePercentage, parkFeePercentage;
     private double nightTime, dayTime;
     private String getParkInfo2, getParkInfo4, getParkInfo5;
     private static final int GETPARKINFO_ERROR = 1;
@@ -31,10 +33,12 @@ public class BestChoiceActivity extends AppCompatActivity {
     private double totalSpaces2, totalAvailable2, nightPrice2, dayPrice2;
     private double totalSpaces4, totalAvailable4, nightPrice4, dayPrice4;
     private double totalSpaces5, totalAvailable5, nightPrice5, dayPrice5;
-    private double parkingFreeRate2, parkFee2, distance2;
-    private double parkingFreeRate4, parkFee4, distance4;
-    private double parkingFreeRate5, parkFee5, distance5;
+    private double parkingOccupyRate2, parkFee2, distance2;
+    private double parkingOccupyRate4, parkFee4, distance4;
+    private double parkingOccupyRate5, parkFee5, distance5;
     private double averageParkingFreeRate, averageParkFee, averageDistance;
+    private double overView2, overView4, overView5;
+    private double targetOverView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,11 @@ public class BestChoiceActivity extends AppCompatActivity {
         e_parkingLotId = (EditText) findViewById(R.id.best_choice_parking_name_edit_text);
         e_parkingFreeRate = (EditText) findViewById(R.id.best_choice_parking_free_rate_edit_text);
         e_distance = (EditText) findViewById(R.id.best_choice_distance_edit_text);
+        e_parkFee = (EditText) findViewById(R.id.best_choice_parkFee_edit_text);
+        e_parkingLotId.setEnabled(false);
+        e_parkingFreeRate.setEnabled(false);
+        e_distance.setEnabled(false);
+        e_parkFee.setEnabled(false);
 
         //Intent get 停车的夜间和日间时间
         Bundle bundle = this.getIntent().getExtras();
@@ -71,6 +80,45 @@ public class BestChoiceActivity extends AppCompatActivity {
 
         System.out.println("\nparkingLotLongitude : " + parkingLotLongitude[0] + "::::" + parkingLotLongitude[1] + "::::" + parkingLotLongitude[2]);
 
+        //判断车位空闲率排名
+        switch (parkingFreeRate_rate) {
+            case 1:
+                parkingOccupyRatePercentage = 0.7;
+                break;
+            case 2:
+                parkingOccupyRatePercentage = 0.5;
+                break;
+            case 3:
+                parkingOccupyRatePercentage = 0.3;
+                break;
+        }
+
+        switch (distance_rate) {
+            case 1:
+                distancePercentage = 0.7;
+                break;
+            case 2:
+                distancePercentage = 0.5;
+                break;
+            case 3:
+                distancePercentage = 0.3;
+                break;
+        }
+
+        switch (parkFee_rate) {
+            case 1:
+                parkFeePercentage = 0.7;
+                break;
+            case 2:
+                parkFeePercentage = 0.5;
+                break;
+            case 3:
+                parkFeePercentage = 0.3;
+                break;
+        }
+
+        System.out.println("\nparkingOccupyRatePercentage : " + parkingOccupyRatePercentage +
+                "\ndistancePercentage : " + distancePercentage + "\nparkFeePercentage : " + parkFeePercentage);
 
         latLng2 = new LatLng(parkingLotLatitude[0], parkingLotLongitude[0]);
         latLng4 = new LatLng(parkingLotLatitude[1], parkingLotLongitude[1]);
@@ -101,6 +149,8 @@ public class BestChoiceActivity extends AppCompatActivity {
             }
         });
         post_thread.start();
+
+
     }
 
     private Handler handler = new Handler() {
@@ -110,48 +160,7 @@ public class BestChoiceActivity extends AppCompatActivity {
                     Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_error, Toast.LENGTH_SHORT).show();
                     break;
                 case GETPARKINFO_SUCCESS:
-                    String[] strArray2 = getParkInfo2.split("!");
-                    totalSpaces2 = Integer.parseInt(strArray2[0]);
-                    totalAvailable2 = Integer.parseInt(strArray2[1]);
-                    dayPrice2 = Double.parseDouble(strArray2[2]);
-                    nightPrice2 = Double.parseDouble(strArray2[3]);
-                    parkFee2 = nightPrice2 * nightTime + dayPrice2 * dayTime;
-                    BigDecimal a = new BigDecimal(parkFee2);
-                    parkFee2 = a.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    parkingFreeRate2 = totalAvailable2 / totalSpaces2;
-
-                    String[] strArray4 = getParkInfo4.split("!");
-                    totalSpaces4 = Integer.parseInt(strArray4[0]);
-                    totalAvailable4 = Integer.parseInt(strArray4[1]);
-                    dayPrice4 = Double.parseDouble(strArray4[2]);
-                    nightPrice4 = Double.parseDouble(strArray4[3]);
-                    parkFee4 = nightPrice4 * nightTime + dayPrice4 * dayTime;
-                    BigDecimal b = new BigDecimal(parkFee4);
-                    parkFee4 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    parkingFreeRate4 = totalAvailable4 / totalSpaces4;
-
-                    String[] strArray5 = getParkInfo5.split("!");
-                    totalSpaces5 = Integer.parseInt(strArray5[0]);
-                    totalAvailable5 = Integer.parseInt(strArray5[1]);
-                    dayPrice5 = Double.parseDouble(strArray5[2]);
-                    nightPrice5 = Double.parseDouble(strArray5[3]);
-                    parkFee5 = nightPrice5 * nightTime + dayPrice5 * dayTime;
-                    BigDecimal c = new BigDecimal(parkFee5);
-                    parkFee5 = c.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    parkingFreeRate5 = totalAvailable5 / totalSpaces5;
-
-                    averageParkingFreeRate = (parkingFreeRate2 + parkingFreeRate4 + parkingFreeRate5) / 3;
-                    averageParkFee = (parkFee2 + parkFee4 + parkFee5) / 3;
-                    averageDistance = (distance2 + distance4 +distance5) /3;
-
-                    System.out.println("\n\n\nparkingFreeRate2 : " + parkingFreeRate2 + "\nparkingFreeRate4 : " +
-                            parkingFreeRate4 + "\nparkingFreeRate5 : " + parkingFreeRate5);
-
-                    System.out.println("\n\n\nnightTime : " + nightTime + "\ndayTime : " + dayTime +
-                            "\nparkFee2 : " + parkFee2 + "\nparkFee4 : " + parkFee4 + "\nparkFee5 : " + parkFee5);
-
-                    System.out.println("\n\n\ndistance2 : " + distance2 + "\ndistance4 : " + distance4 + "\ndistance5 : " + distance5);
-
+                    chooseBestParkingLot();
                     Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -159,4 +168,122 @@ public class BestChoiceActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void chooseBestParkingLot() {
+        String[] strArray2 = getParkInfo2.split("!");
+        totalSpaces2 = Integer.parseInt(strArray2[0]);
+        totalAvailable2 = Integer.parseInt(strArray2[1]);
+        dayPrice2 = Double.parseDouble(strArray2[2]);
+        nightPrice2 = Double.parseDouble(strArray2[3]);
+        parkFee2 = nightPrice2 * nightTime + dayPrice2 * dayTime;
+        parkingOccupyRate2 = 1 - totalAvailable2 / totalSpaces2;
+
+        String[] strArray4 = getParkInfo4.split("!");
+        totalSpaces4 = Integer.parseInt(strArray4[0]);
+        totalAvailable4 = Integer.parseInt(strArray4[1]);
+        dayPrice4 = Double.parseDouble(strArray4[2]);
+        nightPrice4 = Double.parseDouble(strArray4[3]);
+        parkFee4 = nightPrice4 * nightTime + dayPrice4 * dayTime;
+
+        parkingOccupyRate4 = 1 - totalAvailable4 / totalSpaces4;
+
+        String[] strArray5 = getParkInfo5.split("!");
+        totalSpaces5 = Integer.parseInt(strArray5[0]);
+        totalAvailable5 = Integer.parseInt(strArray5[1]);
+        dayPrice5 = Double.parseDouble(strArray5[2]);
+        nightPrice5 = Double.parseDouble(strArray5[3]);
+        parkFee5 = nightPrice5 * nightTime + dayPrice5 * dayTime;
+        parkingOccupyRate5 = 1 - totalAvailable5 / totalSpaces5;
+
+        averageParkingFreeRate = (parkingOccupyRate2 + parkingOccupyRate4 + parkingOccupyRate5) / 3;
+        averageParkFee = (parkFee2 + parkFee4 + parkFee5) / 3;
+        averageDistance = (distance2 + distance4 + distance5) / 3;
+
+        overView2 = parkingOccupyRatePercentage * parkingFreeRate_rate + parkFeePercentage * parkFee2 + distancePercentage * distance2;
+        overView4 = parkingOccupyRatePercentage * parkingFreeRate_rate + parkFeePercentage * parkFee4 + distancePercentage * distance4;
+        overView5 = parkingOccupyRatePercentage * parkingFreeRate_rate + parkFeePercentage * parkFee5 + distancePercentage * distance5;
+
+        System.out.println("\n\n\nparkingOccupyRate2 : " + parkingOccupyRate2 + "\nparkingOccupyRate4 : " +
+                parkingOccupyRate4 + "\nparkingOccupyRate5 : " + parkingOccupyRate5);
+
+        System.out.println("\n\n\nnightTime : " + nightTime + "\ndayTime : " + dayTime +
+                "\nparkFee2 : " + parkFee2 + "\nparkFee4 : " + parkFee4 + "\nparkFee5 : " + parkFee5);
+
+        System.out.println("\n\n\ndistance2 : " + distance2 + "\ndistance4 : " + distance4 + "\ndistance5 : " + distance5);
+
+        System.out.println("\n\n\noverView2 : " + overView2 + "\noverView4 : " + overView4 + "\noverView5 : " + overView5);
+
+        targetOverView = compareOverView(overView2, overView4, overView5);
+
+
+        if (targetOverView == overView2) {
+            e_parkingLotId.setText(String.valueOf(parkingLotId[0]) + "号停车场");
+
+            parkingOccupyRate2 = (1- parkingOccupyRate2) * 100;
+            BigDecimal parkingFreeRate = new BigDecimal(parkingOccupyRate2);
+            parkingOccupyRate2 = parkingFreeRate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+//            DecimalFormat df = new DecimalFormat("0.000");
+//            df.format(parkingOccupyRate2);
+            System.out.println("parkingOccupyRate2 ------------------------------------: " + parkingOccupyRate2);
+            e_parkingFreeRate.setText(String.valueOf(parkingOccupyRate2) + "%");
+
+            e_distance.setText(String.valueOf((int)distance2) + "米");
+
+            BigDecimal parkFee = new BigDecimal(parkFee2);
+            parkFee2 = parkFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            e_parkFee.setText(String.valueOf(parkFee2) + "元");
+        } else if (targetOverView == overView4) {
+            e_parkingLotId.setText(String.valueOf(parkingLotId[1]) + "号停车场");
+
+            parkingOccupyRate4 = (1- parkingOccupyRate4) * 100;
+            BigDecimal parkingFreeRate = new BigDecimal(parkingOccupyRate4);
+            parkingOccupyRate4 = parkingFreeRate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+//            DecimalFormat df = new DecimalFormat("0.000");
+//            df.format(parkingOccupyRate4);
+            e_parkingFreeRate.setText(String.valueOf(parkingOccupyRate4) + "%");
+
+            e_distance.setText(String.valueOf((int)distance4) + "米");
+
+            BigDecimal parkFee = new BigDecimal(parkFee4);
+            parkFee4 = parkFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            e_parkFee.setText(String.valueOf(parkFee4) + "元");
+        } else if (targetOverView == overView4) {
+            e_parkingLotId.setText(String.valueOf(parkingLotId[2]) + "号停车场");
+
+            parkingOccupyRate5 = (1- parkingOccupyRate5) * 100;
+            BigDecimal parkingFreeRate = new BigDecimal(parkingOccupyRate5);
+            parkingOccupyRate5 = parkingFreeRate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            e_parkingFreeRate.setText(String.valueOf(parkingOccupyRate5) + "%");
+
+            e_distance.setText(String.valueOf((int)distance5) + "米");
+
+            BigDecimal parkFee = new BigDecimal(parkFee5);
+            parkFee5 = parkFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            e_parkFee.setText(String.valueOf(parkFee5) + "元");
+        }
+
+
+//        maxOverView = Math.max(Math.max(overView2, overView4), overView5);
+//        minOverView = Math.min(Math.max(overView2, overView4), overView5);
+    }
+
+    private double compareOverView(double a, double b, double c) {
+        if (a > b) {
+            if (c > a) {
+                return b;
+            } else if (c < b) {
+                return c;
+            } else {
+                return b;
+            }
+        } else {
+            if (c < a) {
+                return c;
+            } else if (c > b) {
+                return a;
+            } else {
+                return a;
+            }
+        }
+    }
 }

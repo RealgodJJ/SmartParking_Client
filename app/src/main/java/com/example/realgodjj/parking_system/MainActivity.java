@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
                 Bundle bundle = new Bundle();
-                //TODO
                 bundle.putDouble("endLatitude", desLocation.latitude);
                 bundle.putDouble("endLongitude", desLocation.longitude);
                 bundle.putSerializable("parkingLotUid", parkingLotUid);
@@ -377,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         baiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(result.getLocation()));
         String strInfo = String.format("纬度：%f 经度：%f",
                 result.getLocation().latitude, result.getLocation().longitude);
-        Toast.makeText(MainActivity.this, strInfo, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.this, strInfo, Toast.LENGTH_SHORT).show();
         Toast.makeText(MainActivity.this, R.string.get_destination, Toast.LENGTH_SHORT).show();
         MyApp.setSureDestination(true);
         resumeMenu(thisMenu);
@@ -442,7 +441,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                     parkingLotId[i] = index + 1;
                     parkingLotLatitude[i] = currClickPoi[i].location.latitude;
                     parkingLotLongitude[i] = currClickPoi[i].location.longitude;
-
+                    //TODO
                     System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
                     System.out.println("parkingLotId(" + (i + 1) + ") : " + parkingLotId[i]);
                     System.out.println("parkingLotLatitude(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
@@ -511,7 +510,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     }
 
     //设定导航的起点和终点
-    @NonNull //TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! get startpoint and endpoint
+    @NonNull
     private RoutLinePlanots setPlanningRoad() {
         routLinePlanots = new RoutLinePlanots();
         PlanNode startNode = PlanNode.withLocation(new LatLng(MyApp.getCurrBDLocation().getLatitude(), MyApp.getCurrBDLocation().getLongitude()));
@@ -525,7 +524,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private void parkInfo() {
         Intent intent = new Intent(MainActivity.this, ParkInfoActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);//TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! id---->uid
+        bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);
         bundle.putString("parkingLotName", MyApp.getCurrClickPoi().name);
         bundle.putString("parkingLotAddress", MyApp.getCurrClickPoi().address);
         bundle.putString("parkingLotLatitude", String.valueOf(MyApp.getCurrClickPoi().location.latitude));
@@ -693,7 +692,13 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            exit();
+            if (MyApp.isBestChoice()) {
+                pleaseUserChoose.setVisibility(View.INVISIBLE);
+                sureParkingLots.setVisibility(View.INVISIBLE);
+                MyApp.setBestChoice(false);
+            } else {
+                exit();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
