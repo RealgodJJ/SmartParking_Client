@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 
     private int currClickId;
     private RoutLinePlanots routLinePlanots;
+    private StringBuffer str1, str2;
     private PopupWindow optionBelow;
 
     private long mExitTime;//The time application exit
@@ -442,15 +443,17 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                     parkingLotId[i] = index + 1;
                     parkingLotLatitude[i] = currClickPoi[i].location.latitude;
                     parkingLotLongitude[i] = currClickPoi[i].location.longitude;
-                    //TODO
                     System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
                     System.out.println("parkingLotId(" + (i + 1) + ") : " + parkingLotId[i]);
                     System.out.println("parkingLotLatitude(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
                     System.out.println("parkingLotLongitude(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
-                    StringBuffer str1 = new StringBuffer(String.valueOf(index + 1));
                     //TODO
                     if(i != 0) {
-                        StringBuffer str2 = new StringBuffer(String.valueOf(index + 1));
+                        str2 = new StringBuffer("、" + String.valueOf(index + 1));
+                        str1.append(str2);
+                    } else {
+                        str1 = new StringBuffer("");
+                        str2 = new StringBuffer(String.valueOf(index + 1));
                         str1.append(str2);
                     }
                     point_parkingLot.setText("您已选择了" + str1 + "号停车场!");
