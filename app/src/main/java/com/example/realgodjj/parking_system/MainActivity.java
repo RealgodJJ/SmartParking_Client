@@ -28,8 +28,6 @@ import com.example.realgodjj.parking_system.baidu.RoutLinePlanots;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.baidu.MapStateView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnGetPoiSearchResultListener, OnGetGeoCoderResultListener, View.OnClickListener {
@@ -60,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     private double parkingLotLatitude[] = new double[3];
     private double parkingLotLongitude[] = new double[3];
     private int i = 0;
+    private int firstParkingLot = 0, secondParkingLot = 0;
 
     private int currClickId;
     private RoutLinePlanots routLinePlanots;
@@ -89,16 +88,31 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         sureParkingLots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putDouble("endLatitude", desLocation.latitude);
-                bundle.putDouble("endLongitude", desLocation.longitude);
-                bundle.putSerializable("parkingLotUid", parkingLotUid);
-                bundle.putSerializable("parkingLotId", parkingLotId);
-                bundle.putSerializable("parkingLotLatitude", parkingLotLatitude);
-                bundle.putSerializable("parkingLotLongitude", parkingLotLongitude);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if (i == 3){
+                    point_parkingLot.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(MainActivity.this, UserChooseActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("endLatitude", desLocation.latitude);
+                    bundle.putDouble("endLongitude", desLocation.longitude);
+                    bundle.putSerializable("parkingLotUid", parkingLotUid);
+                    bundle.putSerializable("parkingLotId", parkingLotId);
+                    bundle.putSerializable("parkingLotLatitude", parkingLotLatitude);
+                    bundle.putSerializable("parkingLotLongitude", parkingLotLongitude);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                    for(int a = 0;a < 2;a++) {
+                        currClickPoi[a] = null;
+                        parkingLotUid[a] = "";
+                        parkingLotId[a] = -1;
+                        i = 0;
+                        firstParkingLot = 0;
+                        secondParkingLot = 0;
+                        str1 = new StringBuffer("");
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.parking_lot_not_choose, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -435,30 +449,40 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 //                if (i >= 1) {
 
 //                } else {
-                if(i == 3) {
+                if (i == 3) {
                     Toast.makeText(MainActivity.this, "您已选择了三个停车场!", Toast.LENGTH_SHORT).show();
                 } else {
-                    currClickPoi[i] = getPoiResult().getAllPoi().get(index);
-                    parkingLotUid[i] = currClickPoi[i].uid;
-                    parkingLotId[i] = index + 1;
-                    parkingLotLatitude[i] = currClickPoi[i].location.latitude;
-                    parkingLotLongitude[i] = currClickPoi[i].location.longitude;
-                    System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
-                    System.out.println("parkingLotId(" + (i + 1) + ") : " + parkingLotId[i]);
-                    System.out.println("parkingLotLatitude(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
-                    System.out.println("parkingLotLongitude(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
-                    //TODO
-                    if(i != 0) {
-                        str2 = new StringBuffer("、" + String.valueOf(index + 1));
-                        str1.append(str2);
-                    } else {
-                        str1 = new StringBuffer("");
-                        str2 = new StringBuffer(String.valueOf(index + 1));
-                        str1.append(str2);
-                    }
-                    point_parkingLot.setText("您已选择了" + str1 + "号停车场!");
+                    if (index + 1 != secondParkingLot && index + 1 != firstParkingLot) {
+                        currClickPoi[i] = getPoiResult().getAllPoi().get(index);
+                        parkingLotUid[i] = currClickPoi[i].uid;
+                        parkingLotId[i] = index + 1;
+                        if (i == 0) {
+                            firstParkingLot = index + 1;
+                        } else if (i == 1) {
+                            secondParkingLot = index + 1;
+                        }
+                        parkingLotLatitude[i] = currClickPoi[i].location.latitude;
+                        parkingLotLongitude[i] = currClickPoi[i].location.longitude;
+                        System.out.println("currClickPoi(" + (i + 1) + ") : " + currClickPoi[i].uid);
+                        System.out.println("parkingLotId(" + (i + 1) + ") : " + parkingLotId[i]);
+                        System.out.println("parkingLotLatitude(" + (i + 1) + ") : " + currClickPoi[i].location.latitude);
+                        System.out.println("parkingLotLongitude(" + (i + 1) + ") : " + currClickPoi[i].location.longitude);
+
+                        //TODO
+                        if (i != 0) {
+                            str2 = new StringBuffer("、" + String.valueOf(index + 1));
+                            str1.append(str2);
+                        } else {
+                            str1 = new StringBuffer("");
+                            str2 = new StringBuffer(String.valueOf(index + 1));
+                            str1.append(str2);
+                        }
+                        point_parkingLot.setText("您已选择了" + str1 + "号停车场!");
 //                    Toast.makeText(MainActivity.this, "您已选择" + (index + 1) + "号停车场!", Toast.LENGTH_SHORT).show();
-                    i++;
+                        i++;
+                    } else {
+                        Toast.makeText(MainActivity.this, R.string.parking_lot_repeat, Toast.LENGTH_SHORT).show();
+                    }
                 }
 //                }
             } else if (MyApp.isLogin()) {
@@ -556,6 +580,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         pleaseUserChoose.setVisibility(View.VISIBLE);
         sureParkingLots.setVisibility(View.VISIBLE);
         point_parkingLot.setVisibility(View.VISIBLE);
+        point_parkingLot.setText("");
         MyApp.setBestChoice(true);
     }
 
@@ -708,6 +733,15 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 pleaseUserChoose.setVisibility(View.INVISIBLE);
                 sureParkingLots.setVisibility(View.INVISIBLE);
                 point_parkingLot.setVisibility(View.INVISIBLE);
+                for(int a = 0;a < 2;a++) {
+                    currClickPoi[a] = null;
+                    parkingLotUid[a] = "";
+                    parkingLotId[a] = -1;
+                    i = 0;
+                    firstParkingLot = 0;
+                    secondParkingLot = 0;
+                    str1 = new StringBuffer("");
+                }
                 MyApp.setBestChoice(false);
             } else {
                 exit();
