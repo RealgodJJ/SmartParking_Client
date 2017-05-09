@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             return;
         }
         if (poiResult.error == SearchResult.ERRORNO.NO_ERROR) {
-            baiduMap.clear();
+//            baiduMap.clear();
             PoiOverlay overlay = new MyPoiOverlay(baiduMap);
             baiduMap.setOnMarkerClickListener(overlay);
             overlay.setData(poiResult);
@@ -632,11 +632,11 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     /**
      * 设置中心点
      */
-    private void setUserMapCenter(LatLng cenpt) {
+    private void setUserMapCenter(LatLng centerPoint) {
         Log.v("pcw", "setUserMapCenter : lat : " + lat + " lon : " + lon);
         //LatLng cenpt = new LatLng(lat, lon);
         //定义地图状态
-        MapStatus mMapStatus = new MapStatus.Builder().target(cenpt).zoom(18).build();
+        MapStatus mMapStatus = new MapStatus.Builder().target(centerPoint).zoom(18).build();
         //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         //改变地图状态
