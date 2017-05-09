@@ -308,6 +308,9 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 baiduMapView.onResume();
                 resumeMenu(thisMenu);
                 MyApp.setReceive(false);
+                baiduMap.clear();
+                setMarker(currLocation);
+                setUserMapCenter(currLocation);
             }
         });
         build.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
