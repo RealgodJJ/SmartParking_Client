@@ -36,6 +36,9 @@ public class BestChoiceActivity extends AppCompatActivity {
     private double parkingOccupyRate2, parkFee2, distance2;
     private double parkingOccupyRate4, parkFee4, distance4;
     private double parkingOccupyRate5, parkFee5, distance5;
+    private double parkingOccupyRateFactor2, parkFeeFactor2, distanceFactor2;
+    private double parkingOccupyRateFactor4, parkFeeFactor4, distanceFactor4;
+    private double parkingOccupyRateFactor5, parkFeeFactor5, distanceFactor5;
     private double averageParkingFreeRate, averageParkFee, averageDistance;
     private double overView2, overView4, overView5;
     private double targetOverView;
@@ -83,37 +86,37 @@ public class BestChoiceActivity extends AppCompatActivity {
         //判断车位空闲率排名
         switch (parkingFreeRate_rate) {
             case 1:
-                parkingOccupyRatePercentage = 0.7;
-                break;
-            case 2:
                 parkingOccupyRatePercentage = 0.5;
                 break;
-            case 3:
+            case 2:
                 parkingOccupyRatePercentage = 0.3;
+                break;
+            case 3:
+                parkingOccupyRatePercentage = 0.2;
                 break;
         }
 
         switch (distance_rate) {
             case 1:
-                distancePercentage = 0.7;
-                break;
-            case 2:
                 distancePercentage = 0.5;
                 break;
-            case 3:
+            case 2:
                 distancePercentage = 0.3;
+                break;
+            case 3:
+                distancePercentage = 0.2;
                 break;
         }
 
         switch (parkFee_rate) {
             case 1:
-                parkFeePercentage = 0.7;
-                break;
-            case 2:
                 parkFeePercentage = 0.5;
                 break;
-            case 3:
+            case 2:
                 parkFeePercentage = 0.3;
+                break;
+            case 3:
+                parkFeePercentage = 0.2;
                 break;
         }
 
@@ -161,7 +164,7 @@ public class BestChoiceActivity extends AppCompatActivity {
                     break;
                 case GETPARKINFO_SUCCESS:
                     chooseBestParkingLot();
-                    Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(BestChoiceActivity.this, R.string.get_park_info_success, Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -198,10 +201,22 @@ public class BestChoiceActivity extends AppCompatActivity {
         averageParkingFreeRate = (parkingOccupyRate2 + parkingOccupyRate4 + parkingOccupyRate5) / 3;
         averageParkFee = (parkFee2 + parkFee4 + parkFee5) / 3;
         averageDistance = (distance2 + distance4 + distance5) / 3;
+        //TODO
+        parkingOccupyRateFactor2 = 100 / averageParkingFreeRate * (averageParkingFreeRate - parkingOccupyRate2);
+        parkingOccupyRateFactor4 = 100 / averageParkingFreeRate * (averageParkingFreeRate - parkingOccupyRate4);
+        parkingOccupyRateFactor5 = 100 / averageParkingFreeRate * (averageParkingFreeRate - parkingOccupyRate5);
 
-        overView2 = parkingOccupyRatePercentage * parkingFreeRate_rate + parkFeePercentage * parkFee2 + distancePercentage * distance2;
-        overView4 = parkingOccupyRatePercentage * parkingFreeRate_rate + parkFeePercentage * parkFee4 + distancePercentage * distance4;
-        overView5 = parkingOccupyRatePercentage * parkingFreeRate_rate + parkFeePercentage * parkFee5 + distancePercentage * distance5;
+        parkFeeFactor2 = 100 / averageParkFee * (averageParkFee - parkFee2);
+        parkFeeFactor4 = 100 / averageParkFee * (averageParkFee - parkFee4);
+        parkFeeFactor5 = 100 / averageParkFee * (averageParkFee - parkFee5);
+
+        distanceFactor2 = 100 / averageDistance * (averageDistance - distance2);
+        distanceFactor4 = 100 / averageDistance * (averageDistance - distance4);
+        distanceFactor5 = 100 / averageDistance * (averageDistance - distance5);
+
+        overView2 = parkingOccupyRatePercentage * parkingOccupyRateFactor2 + parkFeePercentage * parkFeeFactor2 + distancePercentage * distanceFactor2;
+        overView4 = parkingOccupyRatePercentage * parkingOccupyRateFactor4 + parkFeePercentage * parkFeeFactor4 + distancePercentage * distanceFactor4;
+        overView5 = parkingOccupyRatePercentage * parkingOccupyRateFactor5 + parkFeePercentage * parkFeeFactor5 + distancePercentage * distanceFactor5;
 
         System.out.println("\n\n\nparkingOccupyRate2 : " + parkingOccupyRate2 + "\nparkingOccupyRate4 : " +
                 parkingOccupyRate4 + "\nparkingOccupyRate5 : " + parkingOccupyRate5);
@@ -221,10 +236,9 @@ public class BestChoiceActivity extends AppCompatActivity {
 
             parkingOccupyRate2 = (1- parkingOccupyRate2) * 100;
             BigDecimal parkingFreeRate = new BigDecimal(parkingOccupyRate2);
-            parkingOccupyRate2 = parkingFreeRate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            parkingOccupyRate2 = parkingFreeRate.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 //            DecimalFormat df = new DecimalFormat("0.000");
 //            df.format(parkingOccupyRate2);
-            System.out.println("parkingOccupyRate2 ------------------------------------: " + parkingOccupyRate2);
             e_parkingFreeRate.setText(String.valueOf(parkingOccupyRate2) + "%");
 
             e_distance.setText(String.valueOf((int)distance2) + "米");
@@ -237,7 +251,7 @@ public class BestChoiceActivity extends AppCompatActivity {
 
             parkingOccupyRate4 = (1- parkingOccupyRate4) * 100;
             BigDecimal parkingFreeRate = new BigDecimal(parkingOccupyRate4);
-            parkingOccupyRate4 = parkingFreeRate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            parkingOccupyRate4 = parkingFreeRate.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 //            DecimalFormat df = new DecimalFormat("0.000");
 //            df.format(parkingOccupyRate4);
             e_parkingFreeRate.setText(String.valueOf(parkingOccupyRate4) + "%");
@@ -245,14 +259,14 @@ public class BestChoiceActivity extends AppCompatActivity {
             e_distance.setText(String.valueOf((int)distance4) + "米");
 
             BigDecimal parkFee = new BigDecimal(parkFee4);
-            parkFee4 = parkFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            parkFee4 = parkFee.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
             e_parkFee.setText(String.valueOf(parkFee4) + "元");
-        } else if (targetOverView == overView4) {
+        } else if (targetOverView == overView5) {
             e_parkingLotId.setText(String.valueOf(parkingLotId[2]) + "号停车场");
 
             parkingOccupyRate5 = (1- parkingOccupyRate5) * 100;
             BigDecimal parkingFreeRate = new BigDecimal(parkingOccupyRate5);
-            parkingOccupyRate5 = parkingFreeRate.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            parkingOccupyRate5 = parkingFreeRate.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
             e_parkingFreeRate.setText(String.valueOf(parkingOccupyRate5) + "%");
 
             e_distance.setText(String.valueOf((int)distance5) + "米");
@@ -270,19 +284,19 @@ public class BestChoiceActivity extends AppCompatActivity {
     private double compareOverView(double a, double b, double c) {
         if (a > b) {
             if (c > a) {
-                return b;
-            } else if (c < b) {
                 return c;
+            } else if (c < b) {
+                return a;
             } else {
-                return b;
+                return a;
             }
         } else {
             if (c < a) {
-                return c;
+                return b;
             } else if (c > b) {
-                return a;
+                return c;
             } else {
-                return a;
+                return b;
             }
         }
     }

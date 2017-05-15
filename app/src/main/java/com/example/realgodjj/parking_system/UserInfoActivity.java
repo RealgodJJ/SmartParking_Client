@@ -193,7 +193,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                             user.setUserName(e_userName.getText().toString());
                                             user.setPhoneNumber(e_phoneNumber.getText().toString());
                                             user.setEmail(e_email.getText().toString());
-                                            user.setPlateNo(e_plateNo.getText().toString().substring(1));
+                                            user.setPlateNo(e_plateNo.getText().toString());
                                             //修改数据库用户信息
                                             isSuccess2 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
                                             if (isSuccess2 == null) {

@@ -29,7 +29,7 @@ public class SearchDestinationActivity extends Activity {
             public void onClick(View v) {
                 s_destination = inputDestination.getText().toString().trim();
                 if(!s_destination.equals("")) {
-                    MyApp.setSearchDestination(true);
+//                    MyApp.setSearchDestination(true);
                     Intent intent = new Intent(SearchDestinationActivity.this, MainActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("s_destination", s_destination);
