@@ -7,6 +7,8 @@ import com.baidu.mapapi.search.core.PoiInfo;
 
 public class MyApp {
 
+    private static boolean isAdmin = false;
+
     private static boolean isLogin = false;
 
     private static boolean isRegister = false;
@@ -17,7 +19,7 @@ public class MyApp {
 
     private static boolean isIntent = false;
 
-    private static String ipAddress = "http://10.25.41.121:8085";
+    private static String ipAddress = "http://10.25.41.121:8086";
 
     private static String userName = "";
 
@@ -34,6 +36,14 @@ public class MyApp {
 //    private static boolean isSearchDestination = false;
 
     private static boolean isBestChoice = false;
+
+    public static boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public static void setAdmin(boolean isAdmin) {
+        MyApp.isAdmin = isAdmin;
+    }
 
     public static boolean isLogin() {
         return isLogin;

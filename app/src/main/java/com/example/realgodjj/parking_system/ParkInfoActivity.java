@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.realgodjj.parking_system.client.MyApp;
 import com.example.realgodjj.parking_system.client.ParkInfoClient;
-import com.example.realgodjj.parking_system.simulation.Park;
 
 public class ParkInfoActivity extends AppCompatActivity {
 
@@ -65,8 +64,6 @@ public class ParkInfoActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    Park park = new Park();
-                    park.setParkName(parkingLotUid);
                     isSuccess = ParkInfoClient.getByParkUid(MyApp.getIpAddress(), parkingLotUid);
                     if (isSuccess == null) {
                         Message message = new Message();

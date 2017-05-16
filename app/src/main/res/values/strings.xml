@@ -18,6 +18,7 @@
     <string name="parking_lots">停车场</string>
     <string name="park_info">停车场信息</string>
     <string name="sure_checkout">确定要注销吗?</string>
+    <string name="sure_checkout_admin_mode">确定退出管理员模式吗?</string>
     <string name="checkout_success">注销成功!</string>
     <string name="please_user_choose">请您选择几个候选的停车场:</string>
     <string name="parking_lot_not_choose">还未选择三个停车场!</string>
@@ -44,6 +45,7 @@
     <string name="save_user_info">保存用户信息</string>
     <string name="checkout">注销</string>
     <string name="empty">用户名或密码为空！</string>
+    <string name="admin_mode">进入管理员模式</string>
     <string name="login_right">登录成功！</string>
     <string name="login_error">用户名或密码错误！</string>
 
@@ -103,6 +105,12 @@
     <string name="park_night_price">夜间停车费:</string>
     <string name="get_park_info_success">获取停车场信息成功!</string>
     <string name="get_park_info_error">获取停车场信息失败!</string>
+
+    <!--AdminParkInfoActivity-->
+    <string name="change_park_info">修改停车场信息</string>
+    <string name="save_park_info">保存停车场信息</string>
+    <string name="update_park_info_success">修改停车场信息成功!</string>
+    <string name="update_park_info_error">修改停车场信息失败!</string>
 
     <!--ChooseActivity-->
     <string name="center">个人中心</string>

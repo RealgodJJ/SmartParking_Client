@@ -1,7 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.design.fileencryption.MainActivity">
+    >
 
     <item
             android:id="@+id/login"
@@ -26,6 +25,11 @@
     <item
             android:id="@+id/checkout"
             android:title="用户注销"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/admin_mode"
+            android:title="退出管理员模式"
             app:showAsAction="never"/>
 
 </menu>

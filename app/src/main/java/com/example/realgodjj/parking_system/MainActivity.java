@@ -210,42 +210,42 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
                 }
                 break;
 
-//            case R.id.des:
-//                showDialogLayout(MainActivity.this);
-//                break;
-
-//            case R.id.park_near:
-//                searchParkingLotsByRadius(desLocation);
-//                break;
-
             case R.id.checkout:
                 checkout();
                 break;
+
+            case R.id.admin_mode:
+                checkoutAdmin();
+
+
         }
         return super.onOptionsItemSelected(menuItem);
     }
 
     //刷新菜单
     private void resumeMenu(Menu menu) {
-        if (!MyApp.isLogin()) {
+        if (!MyApp.isLogin() && !MyApp.isAdmin()) {
             menu.findItem(R.id.login).setVisible(true);
             menu.findItem(R.id.user_info).setVisible(false);
-//            menu.findItem(R.id.des).setVisible(false);
-//            menu.findItem(R.id.park_near).setVisible(false);
             menu.findItem(R.id.checkout).setVisible(false);
+            menu.findItem(R.id.admin_mode).setVisible(false);
         } else if (MyApp.isLogin() && !MyApp.isSureDestination()) {
             menu.findItem(R.id.login).setVisible(false);
             menu.findItem(R.id.user_info).setVisible(true);
-//            menu.findItem(R.id.des).setVisible(true);
-//            menu.findItem(R.id.park_near).setVisible(false);
             menu.findItem(R.id.checkout).setVisible(true);
+            menu.findItem(R.id.admin_mode).setVisible(false);
         } else if (MyApp.isLogin() && MyApp.isSureDestination()) {
             menu.findItem(R.id.login).setVisible(false);
             menu.findItem(R.id.user_info).setVisible(true);
-//            menu.findItem(R.id.des).setVisible(true);
-//            menu.findItem(R.id.park_near).setVisible(true);
             menu.findItem(R.id.checkout).setVisible(true);
+            menu.findItem(R.id.admin_mode).setVisible(false);
+        } else if (MyApp.isAdmin()) {
+            menu.findItem(R.id.login).setVisible(false);
+            menu.findItem(R.id.user_info).setVisible(false);
+            menu.findItem(R.id.checkout).setVisible(false);
+            menu.findItem(R.id.admin_mode).setVisible(true);
         }
+
     }
 
     //自定义对话框
@@ -294,14 +294,41 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
     //用户注销
     private void checkout() {
         AlertDialog.Builder build = new AlertDialog.Builder(MainActivity.this);
-        build.setIcon(R.drawable.icon);
+        build.setIcon(R.drawable.user);
         build.setTitle(R.string.sure_checkout);
         build.setCancelable(false);
-        build.setIcon(R.drawable.icon);
         build.setNegativeButton(R.string.sure, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MyApp.setLogin(false);
+                MyApp.setSureDestination(false);
+                Toast.makeText(MainActivity.this, R.string.checkout_success, Toast.LENGTH_SHORT).show();
+                //刷新菜单
+                baiduMapView.onResume();
+                resumeMenu(thisMenu);
+                MyApp.setReceive(false);
+                baiduMap.clear();
+                setMarker(currLocation);
+                setUserMapCenter(currLocation);
+            }
+        });
+        build.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        build.show();
+    }
+
+    private void checkoutAdmin() {
+        AlertDialog.Builder build = new AlertDialog.Builder(MainActivity.this);
+        build.setIcon(R.drawable.administrator);
+        build.setTitle(R.string.sure_checkout_admin_mode);
+        build.setCancelable(false);
+        build.setNegativeButton(R.string.sure, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MyApp.setAdmin(false);
                 MyApp.setSureDestination(false);
                 Toast.makeText(MainActivity.this, R.string.checkout_success, Toast.LENGTH_SHORT).show();
                 //刷新菜单
@@ -490,6 +517,8 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
 //                }
             } else if (MyApp.isLogin()) {
                 showTabBelow();
+            } else if (MyApp.isAdmin()) {
+                showParkInfo();
             } else {
                 Toast.makeText(MainActivity.this, R.string.sys_no_login, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -524,6 +553,17 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         optionBelow.showAtLocation(baiduMapView, Gravity.BOTTOM, 0, 0);
     }
 
+    private void showParkInfo() {
+        View belowPopupView = View.inflate(this, R.layout.parkinfo_table_below, null);
+        Button parkInfo = (Button) belowPopupView.findViewById(R.id.parkinfo_table_below_park_info_button);
+        parkInfo.setOnClickListener(this);
+        optionBelow = new PopupWindow(belowPopupView, DensityUtil.getScreenWidth(this), (int) (DensityUtil.getScreenHeight(this) * 0.13f));
+        optionBelow.setFocusable(true);
+        optionBelow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#dfdfdf")));
+        optionBelow.setAnimationStyle(R.style.bottom_popup_anim);//显示和隐藏弹窗
+        optionBelow.showAtLocation(baiduMapView, Gravity.BOTTOM, 0, 0);
+    }
+
     //点击弹出框按钮事件
     @Override
     public void onClick(View view) {
@@ -542,6 +582,8 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
             case R.id.route_planning_table_below_guide_button:
                 drivingRoute();
                 break;
+            case R.id.parkinfo_table_below_park_info_button:
+                adminParkInfo();
             default:
                 break;
         }
@@ -613,6 +655,22 @@ public class MainActivity extends AppCompatActivity implements OnGetPoiSearchRes
         bundle.putString("parkingLotAddress", MyApp.getCurrClickPoi().address);
         bundle.putParcelable(RoutePlanningActivity.ROUTE_PLANNING, routLinePlanots);
         intent.putExtras(bundle);
+        MyApp.setIntent(true);
+        startActivity(intent);
+    }
+
+    private void adminParkInfo() {
+        Intent intent = new Intent(MainActivity.this, AdminParkInfoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("parkingLotUid", MyApp.getCurrClickPoi().uid);
+        bundle.putString("parkingLotName", MyApp.getCurrClickPoi().name);
+        bundle.putString("parkingLotAddress", MyApp.getCurrClickPoi().address);
+        bundle.putString("destination", destination);
+        intent.putExtras(bundle);
+//        System.out.println(currClickPoi.name + currClickPoi.address + "\n" +
+//                String.valueOf(currClickPoi.location.latitude) + "\n" +
+//                String.valueOf(currClickPoi.location.longitude) + "\n" +
+//                destination);
         MyApp.setIntent(true);
         startActivity(intent);
     }

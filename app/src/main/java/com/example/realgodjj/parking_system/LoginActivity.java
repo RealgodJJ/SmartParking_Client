@@ -18,8 +18,9 @@ import com.example.realgodjj.parking_system.simulation.User;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private static final int LOGIN_SUCCESS = 1;//login success
-    private static final int LOGIN_ERROR = 2;//login fail
+    private static final int ADMIN_MODE = 1;
+    private static final int LOGIN_SUCCESS = 2;//login success
+    private static final int LOGIN_ERROR = 3;//login fail
     private ImageView intelligent;
     private EditText e_userName, e_pwd;
     private TextView changePassword;
@@ -136,6 +137,12 @@ public class LoginActivity extends AppCompatActivity {
                                     MyApp.setLogin(true);
                                     MyApp.setUserName(userName);
                                     finish();
+                                } else if (isSuccess.equals("Administrator mode!")) {
+                                    Message message = new Message();
+                                    message.what = ADMIN_MODE;
+                                    handler.sendMessage(message);
+                                    MyApp.setAdmin(true);
+                                    finish();
                                 } else {
                                     Message message = new Message();
                                     message.what = LOGIN_ERROR;
@@ -197,6 +204,9 @@ public class LoginActivity extends AppCompatActivity {
     private Handler handler = new Handler(){
         public void handleMessage(Message message){
             switch (message.what){
+                case ADMIN_MODE:
+                    Toast.makeText(LoginActivity.this, R.string.admin_mode, Toast.LENGTH_SHORT).show();
+                    break;
                 case LOGIN_ERROR:
                     Toast.makeText(LoginActivity.this, R.string.login_error, Toast.LENGTH_SHORT).show();
                     break;
