@@ -131,7 +131,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                     try {
 
                                         String email_check = "/^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$/";
-                                        String plateNo_check = "/^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/";
+                                        String plateNo_check = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$";
                                         Pattern pattern_email = Pattern.compile(email_check);
                                         Pattern pattern_plateNo = Pattern.compile(plateNo_check);
                                         Matcher matcher_email = pattern_email.matcher(e_email.getText().toString());
@@ -166,7 +166,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                             Message message = new Message();
                                             message.what = EMAIL_REPEAT;
                                             handler.sendMessage(message);
-                                        } else if (matcher_plateNo.matches()) {
+                                        } else if (!matcher_plateNo.matches()) {
                                             Message message = new Message();
                                             message.what = PLATENO_CHECK;
                                             handler.sendMessage(message);
