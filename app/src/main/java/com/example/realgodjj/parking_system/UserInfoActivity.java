@@ -100,7 +100,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 s_userName = e_userName.getText().toString();
                 s_phoneNumber = e_phoneNumber.getText().toString();
                 s_email = e_email.getText().toString();
-                s_plateNo = e_plateNo.getText().toString().substring(1);
+                s_plateNo = e_plateNo.getText().toString();
             }
         });
 
@@ -120,7 +120,7 @@ public class UserInfoActivity extends AppCompatActivity {
                             server_phoneNumber = isSuccess;
                             isSuccess = UserInfoClient.getByEmail(MyApp.getIpAddress(), e_email.getText().toString());
                             server_email = isSuccess;
-                            isSuccess = UserInfoClient.getByPlateNo(MyApp.getIpAddress(), e_plateNo.getText().toString().substring(1));
+                            isSuccess = UserInfoClient.getByPlateNo(MyApp.getIpAddress(), e_plateNo.getText().toString());
                             server_plateNo = isSuccess;
                             System.out.println("get from server :\n" + server_userName + "\n" + server_phoneNumber + "\n" + server_email + "\n" + server_plateNo);
 
@@ -131,7 +131,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                     try {
 
                                         String email_check = "/^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$/";
-                                        String plateNo_check = "^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$";
+                                        String plateNo_check = "/^[\\u4e00-\\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/";
                                         Pattern pattern_email = Pattern.compile(email_check);
                                         Pattern pattern_plateNo = Pattern.compile(plateNo_check);
                                         Matcher matcher_email = pattern_email.matcher(e_email.getText().toString());
@@ -178,22 +178,10 @@ public class UserInfoActivity extends AppCompatActivity {
                                             User user = new User();
                                             user.setUserId(Integer.parseInt(userId));
                                             System.out.println("chuan ru de userId shi ------------ : " + userId);
-//                                            if (!s_userName.equals(e_userName.getText().toString())) {
-//                                                user.setUserName(e_userName.getText().toString());
-//                                            }
-//                                            if (!s_phoneNumber.equals(e_phoneNumber.getText().toString())) {
-//                                                user.setPhoneNumber(e_phoneNumber.getText().toString());
-//                                            }
-//                                            if (!s_email.equals(e_email.getText().toString())) {
-//                                                user.setEmail(e_email.getText().toString());
-//                                            }
-//                                            if (!s_plateNo.equals(e_plateNo.getText().toString())) {
-//                                                user.setPlateNo(e_plateNo.getText().toString().substring(1));
-//                                            }
                                             user.setUserName(e_userName.getText().toString());
                                             user.setPhoneNumber(e_phoneNumber.getText().toString());
                                             user.setEmail(e_email.getText().toString());
-                                            user.setPlateNo(e_plateNo.getText().toString());
+                                            user.setPlateNo(e_plateNo.getText().toString().substring(1));
                                             //修改数据库用户信息
                                             isSuccess2 = UpdateUserClient.updateUser(MyApp.getIpAddress(), user);
                                             if (isSuccess2 == null) {
